@@ -303,10 +303,16 @@
   launcher.setAttribute('aria-controls', root.id);
   launcher.setAttribute('aria-expanded', 'false');
   launcher.hidden = true;
-  launcher.style.right = `${right}px`;
-  launcher.style.bottom = `${bottom}px`;
   root.appendChild(stage);
-  document.body.append(root, launcher, menu);
+  document.body.append(root, menu);
+  function mountLauncher() {
+    const toolbar = document.getElementById('rightside-config-show');
+    launcher.classList.toggle('spine-mascot-launcher--floating', !toolbar);
+    (toolbar || document.body).appendChild(launcher);
+  }
+  mountLauncher();
+  // Butterfly replaces toolbar contents during PJAX navigation.
+  document.addEventListener('pjax:complete', mountLauncher);
 
   function save() {
     preferences = { ...preferences, paused, position, skin: selectedSkin, action: selectedAction,

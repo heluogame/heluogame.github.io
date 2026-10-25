@@ -12,7 +12,7 @@ fps: 60 # 帧率上限
 hide_mobile: true # 手机和窄屏默认不显示，也不请求播放库及素材
 mobile_breakpoint: 768 # 小于等于此宽度按手机端处理，单位 px
 
-use: 7 # 全局临时预览：0=关闭预览并正常轮换；1-7=固定显示对应星期，优先于 weekly.enable
+use: 0 # 全局临时预览：0=关闭预览并正常轮换；1-7=固定显示对应星期，优先于 weekly.enable
 weekly:
   enable: true # 按星期自动轮换，只加载当天对应的角色
   timezone: Asia/Shanghai # 统一使用北京时间，与访客电脑的时区无关

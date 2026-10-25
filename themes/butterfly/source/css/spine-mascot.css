@@ -83,87 +83,56 @@
   pointer-events: auto;
 }
 
-.spine-mascot-launcher {
-  display: inline-grid;
-  width: 28px;
-  height: 28px;
+.spine-mascot-launcher,
+#rightside .spine-mascot-launcher {
+  position: static;
+  display: grid;
+  box-sizing: border-box;
+  width: 35px;
+  height: 35px;
+  margin-bottom: 5px;
   padding: 0;
-  border: 1px solid rgba(40, 48, 60, .15);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, .9);
-  color: #808894;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
-  font-size: 12px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--btn-bg, #5ca1ff);
+  color: #fff;
+  font-size: 16px;
+  line-height: 35px;
+  text-align: center;
   place-items: center;
   cursor: pointer;
   pointer-events: auto;
 }
 
-.spine-mascot-launcher:hover {
-  color: #626b79;
-  border-color: #9aa3b1;
+.spine-mascot-launcher:hover,
+#rightside .spine-mascot-launcher:hover {
+  background: var(--btn-hover-color);
+  color: #fff;
 }
 
-.spine-mascot-launcher[aria-expanded='true'] {
-  color: #e35c93;
+.spine-mascot-launcher[aria-expanded='true'],
+#rightside .spine-mascot-launcher[aria-expanded='true'] {
+  color: #ffb3d2;
 }
 
-.spine-mascot-launcher[aria-expanded='true']:hover {
-  color: #cf3e78;
-  border-color: #e782aa;
+.spine-mascot-launcher:focus-visible,
+#rightside .spine-mascot-launcher:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.spine-mascot-launcher--floating,
+#rightside .spine-mascot-launcher--floating {
+  position: fixed;
+  right: 10px;
+  bottom: 100px;
+  z-index: 100;
 }
 
 .spine-mascot button:focus-visible,
 .spine-mascot-menu button:focus-visible {
   outline: 2px solid var(--game-catalog-accent, #5ca1ff);
   outline-offset: 2px;
-}
-
-.spine-mascot-launcher:focus-visible {
-  outline: 2px solid #808894;
-  outline-offset: 2px;
-}
-
-.spine-mascot-launcher[aria-expanded='true']:focus-visible {
-  outline-color: #e35c93;
-}
-
-.spine-mascot-launcher {
-  position: fixed;
-  z-index: 80;
-  right: 72px;
-  bottom: 18px;
-  width: 32px;
-  height: 32px;
-  font-size: 15px;
-}
-
-[data-theme='dark'] .spine-mascot-launcher {
-  background: rgba(36, 39, 45, .92);
-  border-color: rgba(210, 220, 235, .22);
-  color: #aab3c2;
-}
-
-[data-theme='dark'] .spine-mascot-launcher:hover {
-  color: #929dad;
-  border-color: #8793a6;
-}
-
-[data-theme='dark'] .spine-mascot-launcher[aria-expanded='true'] {
-  color: #f18bb4;
-}
-
-[data-theme='dark'] .spine-mascot-launcher[aria-expanded='true']:hover {
-  color: #e86a9e;
-  border-color: #dc76a2;
-}
-
-[data-theme='dark'] .spine-mascot-launcher:focus-visible {
-  outline-color: #aab3c2;
-}
-
-[data-theme='dark'] .spine-mascot-launcher[aria-expanded='true']:focus-visible {
-  outline-color: #f18bb4;
 }
 
 .spine-mascot-menu {
