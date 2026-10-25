@@ -1,0 +1,56 @@
+dialog#game-quickview.game-quickview(aria-labelledby='game-quickview-title')
+  .game-quickview__frame
+    header.game-quickview__header
+      .game-quickview__heading
+        i.fa-solid.fa-gamepad(data-game-quickview-type-icon aria-hidden='true')
+        strong(data-game-quickview-type-title) 游戏详情
+        span GAME DETAIL
+      button.game-quickview__close(type='button' data-game-quickview-close aria-label='关闭游戏详情')
+        i.fa-solid.fa-xmark(aria-hidden='true')
+    .game-quickview__loading(data-game-quickview-loading)
+      i.fa-solid.fa-spinner.fa-spin(aria-hidden='true')
+      span(data-game-quickview-loading-text) 正在载入游戏详情
+    .game-quickview__body(data-game-quickview-body hidden)
+      section.game-quickview__main
+        .game-quickview__cover
+          img(data-game-quickview-cover alt='')
+        nav.game-quickview__tabs(aria-label='详情区域')
+          button.is-active(type='button' data-game-quickview-tab='details') 详情
+          button(type='button' data-game-quickview-tab='review') 游戏评价
+        article.game-quickview__article(data-game-quickview-article)
+        article.game-quickview__review(data-game-quickview-review-panel hidden)
+          p(data-game-quickview-review) 暂无评价内容
+      aside.game-quickview__summary
+        .game-quickview__summary-head
+          .game-quickview__thumb
+            img(data-game-quickview-thumb alt='')
+          .game-quickview__identity
+            h2#game-quickview-title(data-game-quickview-title)
+            .game-quickview__chips(data-game-quickview-chips)
+        .game-quickview__info
+          .game-quickview__info-item
+            span
+              i.fa-regular.fa-calendar(data-game-quickview-date-icon aria-hidden='true')
+              | 发布时间
+            strong(data-game-quickview-date) --
+          .game-quickview__info-item
+            span
+              i.fa-solid.fa-desktop(data-game-quickview-platform-icon aria-hidden='true')
+              | 支持平台
+            strong(data-game-quickview-platform) --
+          .game-quickview__info-item.game-quickview__info-item--status
+            span
+              i.fa-regular.fa-circle-check(data-game-quickview-status-icon aria-hidden='true')
+              | 资源状态
+            strong(data-game-quickview-status) --
+          .game-quickview__info-item.game-quickview__info-item--size
+            span
+              i.fa-solid.fa-box-archive(data-game-quickview-size-icon aria-hidden='true')
+              | 资源大小
+            strong(data-game-quickview-size) --
+        button.game-quickview__download(type='button' data-game-quickview-download hidden)
+          i.fa-solid.fa-download(aria-hidden='true')
+          span 定位下载区域
+        a.game-quickview__open-page(data-game-quickview-page-link)
+          span 打开完整文章
+          i.fa-solid.fa-arrow-up-right-from-square(aria-hidden='true')

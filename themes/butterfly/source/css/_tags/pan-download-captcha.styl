@@ -1,0 +1,300 @@
+.post-pan-captcha
+  box-sizing: border-box
+  position: fixed
+  inset: 0
+  width: 420px
+  max-width: calc(100vw - 36px)
+  max-height: calc(100vh - 36px)
+  max-height: calc(100dvh - 36px)
+  margin: auto
+  padding: 0
+  overflow: auto
+  border: 1px solid rgba(110, 178, 232, .3)
+  border-radius: 12px
+  color: #142033
+  background: radial-gradient(circle at 8% 0%, rgba(159, 211, 255, .34), transparent 34%), linear-gradient(180deg, #fff, #eef7ff)
+  box-shadow: 0 24px 64px rgba(8, 22, 38, .32)
+
+  &::backdrop
+    background: rgba(12, 18, 28, .44)
+    backdrop-filter: blur(8px)
+
+  [hidden]
+    display: none !important
+
+.post-pan-captcha__panel
+  position: relative
+  margin: 0
+  padding: 20px
+
+.post-pan-captcha__close
+  position: absolute
+  top: 12px
+  right: 12px
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  width: 30px
+  height: 30px
+  padding: 0
+  border: 1px solid rgba(91, 152, 198, .22)
+  border-radius: 8px
+  color: rgba(31, 47, 69, .72)
+  background: rgba(255, 255, 255, .58)
+  cursor: pointer
+  font-size: 20px
+  line-height: 1
+
+  &:hover
+    border-color: rgba(0, 122, 243, .45)
+    color: #007af3
+    background: rgba(255, 255, 255, .9)
+
+.post-pan-captcha__heading
+  display: grid
+  grid-template-columns: 40px minmax(0, 1fr)
+  gap: 11px
+  align-items: center
+  padding-right: 34px
+
+  h3
+    margin: 0
+    color: #111827
+    font-size: 19px
+    font-weight: 800
+    line-height: 1.2
+
+  p
+    margin: 5px 0 0
+    color: rgba(30, 47, 66, .68)
+    font-size: 12px
+    line-height: 1.45
+
+.post-pan-captcha__icon
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  width: 40px
+  height: 40px
+  border: 1px solid rgba(0, 122, 243, .22)
+  border-radius: 10px
+  color: #007af3
+  background: linear-gradient(135deg, rgba(219, 240, 255, .95), rgba(255, 255, 255, .78))
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 10px 24px rgba(0, 122, 243, .12)
+
+.post-pan-captcha__logo
+  display: block
+  width: 25px
+  height: 25px
+  margin: 0
+  object-fit: contain
+
+.post-pan-captcha__target
+  display: inline-flex
+  align-items: center
+  width: fit-content
+  max-width: 100%
+  box-sizing: border-box
+  min-height: 24px
+  margin: 16px 0 10px
+  padding: 3px 10px
+  border: 1px solid rgba(22, 163, 74, .32)
+  border-radius: 999px
+  color: #166534
+  background: rgba(220, 252, 231, .72)
+  font-size: 12px
+  font-weight: 700
+  line-height: 1.4
+  overflow-wrap: anywhere
+
+.post-pan-captcha__code
+  display: grid
+  grid-template-columns: 180px minmax(0, 1fr)
+  gap: 9px
+  align-items: stretch
+  margin-bottom: 10px
+
+.post-pan-captcha__canvas
+  display: block
+  animation: none !important
+  width: 180px !important
+  height: 56px !important
+  border: 1px solid rgba(91, 152, 198, .24)
+  border-radius: 8px
+  background: #edf8ff
+
+.post-pan-captcha__refresh
+  padding: 0 10px
+  border: 1px solid rgba(0, 122, 243, .28)
+  border-radius: 8px
+  color: #0069d0
+  background: rgba(232, 245, 255, .78)
+  cursor: pointer
+  font-size: 12px
+  font-weight: 700
+
+  &:hover
+    border-color: rgba(0, 122, 243, .58)
+    color: #fff
+    background: #007af3
+
+.post-pan-captcha__label
+  display: block
+  margin-bottom: 5px
+  color: rgba(30, 47, 66, .78)
+  font-size: 12px
+
+.post-pan-captcha__input
+  box-sizing: border-box
+  width: 100%
+  height: 40px
+  padding: 0 12px
+  border: 1px solid rgba(91, 152, 198, .28)
+  border-radius: 8px
+  outline: none
+  color: #111827
+  background: rgba(255, 255, 255, .88)
+  font-size: 16px
+  font-weight: 700
+  letter-spacing: .12em
+  text-transform: uppercase
+
+  &:focus
+    border-color: rgba(0, 122, 243, .58)
+    box-shadow: 0 0 0 3px rgba(0, 122, 243, .12)
+
+.post-pan-captcha__message
+  min-height: 18px
+  padding: 6px 0 0
+  color: #dc2626
+  font-size: 12px
+  font-weight: 700
+  line-height: 1.4
+
+.post-pan-captcha__error
+  margin: 4px 0 14px
+  color: #c73737
+  font-size: 14px
+  line-height: 1.7
+
+.post-pan-captcha__actions
+  display: grid
+  grid-template-columns: 1fr 1.35fr
+  gap: 9px
+  margin-top: 8px
+
+.post-pan-captcha[data-mode='error'] .post-pan-captcha__actions
+  grid-template-columns: 1fr
+
+.post-pan-captcha__button
+  min-height: 38px
+  padding: 8px 10px
+  border-radius: 8px
+  cursor: pointer
+  font-size: 14px
+  font-weight: 800
+
+  &.is-ghost
+    border: 1px solid rgba(91, 152, 198, .24)
+    color: rgba(31, 47, 69, .72)
+    background: rgba(255, 255, 255, .56)
+
+    &:hover
+      border-color: rgba(0, 122, 243, .35)
+      color: #007af3
+      background: rgba(255, 255, 255, .86)
+
+  &.is-primary
+    border: 1px solid rgba(22, 163, 74, .54)
+    color: #fff
+    background: #16a34a
+    box-shadow: 0 10px 24px rgba(22, 163, 74, .22)
+
+    &:hover
+      border-color: rgba(22, 163, 74, .72)
+      background: #15803d
+      box-shadow: 0 13px 28px rgba(22, 163, 74, .3)
+
+.post-pan-captcha button:focus-visible
+  outline: 2px solid #007af3
+  outline-offset: 3px
+
+.post-pan-captcha__fallback
+  display: block
+  width: 100%
+  padding-top: 6px
+  color: #c73737
+  font-size: 12px
+
+[data-theme='dark'] .post-pan-captcha
+  border-color: rgba(159, 211, 255, .2)
+  color: rgba(235, 247, 255, .94)
+  background: radial-gradient(circle at 14% 0%, rgba(96, 165, 250, .2), transparent 34%), linear-gradient(180deg, #17212f, #0a111b)
+  box-shadow: 0 28px 76px rgba(0, 0, 0, .46)
+
+  &::backdrop
+    background: rgba(4, 8, 13, .66)
+
+  .post-pan-captcha__close,
+  .post-pan-captcha__button.is-ghost
+    border-color: rgba(159, 211, 252, .2)
+    color: #dce4ec
+    background: rgba(255, 255, 255, .05)
+
+    &:hover
+      color: #7dd3fc
+      background: rgba(125, 211, 252, .09)
+
+  .post-pan-captcha__heading h3
+    color: #f7fbff
+
+  .post-pan-captcha__heading p,
+  .post-pan-captcha__label
+    color: rgba(222, 242, 255, .74)
+
+  .post-pan-captcha__icon
+    border-color: rgba(125, 211, 252, .24)
+    color: #7dd3fc
+    background: rgba(29, 78, 116, .42)
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08)
+
+  .post-pan-captcha__target
+    border-color: rgba(126, 230, 164, .26)
+    color: #bbf7d0
+    background: rgba(20, 83, 45, .34)
+
+  .post-pan-captcha__refresh
+    border-color: rgba(125, 211, 252, .22)
+    color: #bae6fd
+    background: rgba(29, 78, 116, .3)
+
+    &:hover
+      color: #fff
+      background: #007af3
+
+  .post-pan-captcha__input
+    border-color: rgba(159, 211, 255, .18)
+    color: #f7fbff
+    background: rgba(15, 23, 42, .76)
+
+  .post-pan-captcha__message,
+  .post-pan-captcha__error
+    color: #fca5a5
+
+@media screen and (max-width: 520px)
+  .post-pan-captcha
+    width: 360px
+    max-width: calc(100vw - 24px)
+
+  .post-pan-captcha__panel
+    padding: 18px
+
+  .post-pan-captcha__code
+    grid-template-columns: 1fr
+
+  .post-pan-captcha__canvas
+    box-sizing: border-box
+    width: 100% !important
+
+  .post-pan-captcha__refresh
+    min-height: 38px

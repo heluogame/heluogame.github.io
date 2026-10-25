@@ -1,0 +1,32 @@
+- const mascotData = site.data && site.data['spine-mascot']
+if mascotData && mascotData.enable === true
+  -
+    const assetUrl = value => !value ? '' : /^(?:https?:)?\/\//i.test(value) ? value : url_for(value)
+    const modelUrls = model => !model || typeof model !== 'object' ? model : Object.assign({}, model,
+      model.skeleton ? { skeleton: assetUrl(model.skeleton) } : {},
+      model.atlas ? { atlas: assetUrl(model.atlas) } : {},
+      model.voices ? { voices: Object.fromEntries(Object.entries(model.voices).map(([action, clips]) => [action, Array.isArray(clips) ? clips.map(assetUrl) : assetUrl(clips)])) } : {},
+      Array.isArray(model.variants) ? { variants: model.variants.map(modelUrls) } : {}
+    )
+    const usesComposites = model => model && typeof model === 'object' && (
+      Array.isArray(model.composites) && model.composites.length > 0 ||
+      Array.isArray(model.variants) && model.variants.some(usesComposites)
+    )
+    const needsComposites = usesComposites(mascotData) ||
+      Object.values(mascotData.weekly && mascotData.weekly.days || {}).some(usesComposites) ||
+      Object.values(mascotData.models || {}).some(usesComposites)
+    const mascotConfig = Object.assign({}, modelUrls(mascotData), {
+      runtime: assetUrl(mascotData.runtime || '/assets/spine-mascot/vendor/spine-player-4.1.55.js'),
+      weekly: Object.assign({}, mascotData.weekly, {
+        days: Object.fromEntries(Object.entries(mascotData.weekly && mascotData.weekly.days || {}).map(([day, model]) => [day, modelUrls(model)]))
+      }),
+      models: Object.fromEntries(Object.entries(mascotData.models || {}).filter(([, model]) => model && typeof model === 'object').map(([id, model]) => [id, Object.assign({ skeleton: '', atlas: '' }, modelUrls(model))]))
+    })
+  link(rel='stylesheet' href=url_for('/css/spine-mascot.css'))
+  script#spine-mascot-config(type='application/json')!= JSON.stringify(mascotConfig).replace(/</g, '\\u003c')
+  script(defer src=url_for('/js/spine-mascot-schedule.js'))
+  script(defer src=url_for('/js/spine-mascot-framing.js'))
+  script(defer src=url_for('/js/spine-mascot-assets.js'))
+  if needsComposites
+    script(defer src=url_for('/js/spine-mascot-composites.js'))
+  script(defer src=url_for('/js/spine-mascot.js'))

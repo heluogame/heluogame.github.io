@@ -1,0 +1,802 @@
+# 看板娘通用设置：开关、位置和角色都在这个文件修改，对所有星期生效
+enable: true # 总开关；false 时不加载播放器和素材
+default_visible: false # true=打开页面时显示；false=只显示爱心入口，主动点击后才加载和显示
+premultiplied_alpha: false # 默认透明混合方式；有特殊要求的模型单独覆盖
+speed: 0.5 # 默认播放速度；模型只需填写不同的速度
+# 菜单名称从完整名称提取；同一天、同分类重名时自动加序号
+# 默认使用 default 皮肤和“互动”动作标签；PNG 直链在各模型 texture_urls 中
+# 显示规范固定在公共脚本：100% 待机高度 270px，缩放 60%-300%，优先显示立绘
+right: 72 # 初始距离窗口右侧的距离，避开博客原有工具按钮
+bottom: 18 # 初始距离窗口底部的距离
+fps: 60 # 帧率上限
+hide_mobile: true # 手机和窄屏默认不显示，也不请求播放库及素材
+mobile_breakpoint: 768 # 小于等于此宽度按手机端处理，单位 px
+
+use: 7 # 全局临时预览：0=关闭预览并正常轮换；1-7=固定显示对应星期，优先于 weekly.enable
+weekly:
+  enable: true # 按星期自动轮换，只加载当天对应的角色
+  timezone: Asia/Shanghai # 统一使用北京时间，与访客电脑的时区无关
+
+  # 每日配置：1=星期一，7=星期日；use 表示复用另一天的完整配置
+  days:
+    # 星期一：Nebris、Sylvia、Justia 立绘与场景，及 Ventana、Darian 的 B 段分段演出（Spine 4.1.11）
+    1:
+      id: nebris-003392
+      name: Nebris · Lucky Bikini
+      category: character
+      skeleton: /assets/spine-mascot/models/nebris-003392/skeleton.skel
+      atlas: /assets/spine-mascot/models/nebris-003392/skeleton.atlas
+      texture_urls:
+        "char003392.png": "https://i0.hdslb.com/bfs/openplatform/bf39f80fb5a33379d5ba1dab226d3ec0edcf404a.png"
+      idle: idle
+      interaction: motion
+      speed: 0.75
+      variants:
+        - id: sylvia-001006
+          name: Sylvia · Bikini Agent
+          category: character
+          skeleton: /assets/spine-mascot/models/sylvia-001006/skeleton.skel
+          atlas: /assets/spine-mascot/models/sylvia-001006/skeleton.atlas
+          texture_urls:
+            "char001006.png": "https://i0.hdslb.com/bfs/openplatform/cc9a5e5e7ff087c5e2116f92df5cc10a04672594.png"
+          idle: idle
+          interaction: motion
+          speed: 0.75
+        - id: sylvia-001092
+          name: Sylvia · Crimson Lotus
+          category: character
+          skeleton: /assets/spine-mascot/models/sylvia-001092/skeleton.skel
+          atlas: /assets/spine-mascot/models/sylvia-001092/skeleton.atlas
+          texture_urls:
+            "char001092.png": "https://i0.hdslb.com/bfs/openplatform/f41b3ae0ffb953d32d835fef750bae36f3731568.png"
+          idle: idle
+          interaction: motion
+          speed: 0.75
+        - id: justia-000296
+          name: Justia · Hot Summer Dream
+          category: character
+          skeleton: /assets/spine-mascot/models/justia-000296/skeleton.skel
+          atlas: /assets/spine-mascot/models/justia-000296/skeleton.atlas
+          texture_urls:
+            "char000296.png": "https://i0.hdslb.com/bfs/openplatform/efe027c44e1e75bf3a17706695907b927de395a2.png"
+          idle: idle
+          interaction: motion
+          speed: 0.75
+        - id: nebris-003303-ultimate
+          name: Nebris · New Hire — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/nebris-003303-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/nebris-003303-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char003303.png": "https://i0.hdslb.com/bfs/openplatform/2b8bf51529636bf49ac05de1e2d0e0c369a66e2c.png"
+          idle: loop
+          interaction: A_cut # 点击演出一次，结束后回到 loop
+          speed: 1
+          scene_steps: # 只测量这组动画的构图，避免混入另一组的初始姿势
+            - { id: A, label: 演出, animation: A_cut, idle: loop, bounds_prefix: A_ }
+        - id: sylvia-001006-dating
+          name: Sylvia · Bikini Agent — Fated Guest
+          category: scene
+          skeleton: /assets/spine-mascot/models/sylvia-001006-dating/skeleton.skel
+          atlas: /assets/spine-mascot/models/sylvia-001006-dating/skeleton.atlas
+          texture_urls:
+            "illust_dating8.png": "https://i0.hdslb.com/bfs/openplatform/26293a5ce98b91c9d640bfd245d029c064b2be14.png"
+            "illust_dating8_2.png": "https://i0.hdslb.com/bfs/openplatform/0f2f4a4811406ba3f883f57f66ec48dfca6b7ec9.png"
+            "illust_dating8_3.png": "https://i0.hdslb.com/bfs/openplatform/2fa2c664cbf3bec59ca013a1bf0d23f8be01183c.png"
+            "illust_dating8_4.png": "https://i0.hdslb.com/bfs/openplatform/5a74ab7136e6d5bb165a09d2d729836b245df785.png"
+            "illust_dating8_5.png": "https://i0.hdslb.com/bfs/openplatform/00c7229904ca8a066baac2a5d62a7ec2c6b41308.png"
+            "illust_dating8_6.png": "https://i0.hdslb.com/bfs/openplatform/e536632ed20d9157a37aaec5642265b8788f45c1.png"
+          idle: idle1
+          interaction: motion2_1
+          # 只保留这两个动画；点击播放 motion2_1 一次，然后返回 idle1。
+          scene_steps:
+            - { id: story, label: 互动, animation: motion2_1, idle: idle1 }
+          # 裁掉背景网格向外拉伸的黑边；保留主图四周柔和过渡至透明。
+          scene_crop: { x: -2240, y: -1990, width: 4480, height: 3980 }
+          scene_feather: { left: 150, right: 150, top: 150, bottom: 150 }
+        - id: ventana-067004-ultimate
+          name: Ventana · Onsen Practitioner — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/ventana-067004-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/ventana-067004-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char067004.png": "https://i0.hdslb.com/bfs/openplatform/420673b1204cda02dc84d589c0900ace9e04ac98.png"
+            "cutscene_char067004_2.png": "https://i0.hdslb.com/bfs/openplatform/99c61f4f90f15fc91a4add163e5d75e609109cc6.png"
+            "cutscene_char067004_3.png": "https://i0.hdslb.com/bfs/openplatform/00f6cd081e505b43433d8ad3d20776eb038ef48f.png"
+          idle: B_cut
+          interaction: B_cut
+          # 换姿发生在 2.2 秒；前一帧截断。前段待机循环，点击播放后段，再返回前段。
+          # 只使用 B_cut 的两个片段；原素材中的 loop_2、A_cut、steam 动画不自动播放。
+          scene_steps:
+            - { id: B, label: 互动, animation: B_cut, idle: B_cut, idle_range: [0, 2.1666667461395264], interaction_range: [2.1666667461395264, 6.300000190734863], idle_mix: 0.2, bounds_prefix: B_ }
+        - id: darian-004001-ultimate
+          name: Darian · Prophetic Dream — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/darian-004001-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/darian-004001-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char004001.png": "https://i0.hdslb.com/bfs/openplatform/92054f6b4abfcc83ca5573112bab219851ade4ac.png"
+            "cutscene_char004001_2.png": "https://i0.hdslb.com/bfs/openplatform/011ee8299b477eeeeb0c3628c4260846b3e6b6e3.png"
+            "cutscene_char004001_3.png": "https://i0.hdslb.com/bfs/openplatform/d67d22f785e4c623d98730487069cb8dfda5cb24.png"
+            "cutscene_char004001_4.png": "https://i0.hdslb.com/bfs/openplatform/2ddcebe93d6b00b4c95bd31acbfa3c5a5c05816d.png"
+            "cutscene_char004001_5.png": "https://i0.hdslb.com/bfs/openplatform/000c276b215d978d35a2edffab44d243f1d1b8de.png"
+          idle: cut_B
+          interaction: cut_B
+          # cut_B 分为前段待机循环和后段点击互动；后段播放一次后返回前段。
+          # 在 2.733 秒同步关键帧处分段，保留待机呼吸，随后进入抬手互动。
+          scene_steps:
+            - { id: B, label: 互动, animation: cut_B, idle: cut_B, idle_range: [0, 2.7333335876464844], interaction_range: [2.7333335876464844, 6.000000476837158], idle_mix: 0.2, bounds_prefix: B_ }
+
+    # 星期二：Morpeah、Sword Maiden、Helena、Teresse 立绘，Morpeah、Teresse 的 B 段演出及两套 Teresse 剧情场景，Spine 4.1.11；素材均在本地
+    2:
+      id: morpeah-003402
+      name: Morpeah · Daydream Bunny
+      category: character
+      menu_order: [teresse-001197, sword-maiden-020901, helena-061003, morpeah-003402]
+      skeleton: /assets/spine-mascot/models/morpeah-003402/skeleton.skel
+      atlas: /assets/spine-mascot/models/morpeah-003402/skeleton.atlas
+      texture_urls:
+        "char003402.png": "https://i0.hdslb.com/bfs/openplatform/f8b4cff92ae5821e924ff58cdf1b7da6ef5a44fd.png"
+      # 原图为直通 Alpha；上传时预乘并配套 PMA 混合，避免互动腮红把脸叠白。
+      premultiply_textures: true
+      premultiplied_alpha: true
+      idle: idle
+      interaction: motion
+      variants:
+        - id: sword-maiden-020901
+          name: Sword Maiden · Supreme God Archbishop
+          category: character
+          skeleton: /assets/spine-mascot/models/sword-maiden-020901/skeleton.skel
+          atlas: /assets/spine-mascot/models/sword-maiden-020901/skeleton.atlas
+          texture_urls:
+            "char020901.png": "https://i0.hdslb.com/bfs/openplatform/ebc27998de3cfb0147456cf39b1e506aded8767e.png"
+          idle: idle
+          interaction: motion
+        - id: helena-061003
+          name: Helena · Sunny Inn Hand
+          category: character
+          skeleton: /assets/spine-mascot/models/helena-061003/skeleton.skel
+          atlas: /assets/spine-mascot/models/helena-061003/skeleton.atlas
+          texture_urls:
+            "char061003.png": "https://i0.hdslb.com/bfs/openplatform/5cffec89445ff113bbec3186cfed25202b422bbf.png"
+          idle: idle
+          interaction: motion
+        - id: teresse-001197
+          name: Teresse · Milky Bikini
+          category: character
+          skeleton: /assets/spine-mascot/models/teresse-001197/skeleton.skel
+          atlas: /assets/spine-mascot/models/teresse-001197/skeleton.atlas
+          texture_urls:
+            "char001197.png": "https://i0.hdslb.com/bfs/openplatform/2697c35b96dd1434556308ddbd64f4e30bd07541.png"
+          premultiply_textures: true
+          premultiplied_alpha: true
+          idle: idle
+          interaction: motion
+        - id: morpeah-003401-ultimate
+          name: Morpeah · Beach Vacation — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/morpeah-003401-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/morpeah-003401-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char003401.png": "https://i0.hdslb.com/bfs/openplatform/957197d935305f367676f0a43293bb274ad5ec0d.png"
+            "cutscene_char003401_2.png": "https://i0.hdslb.com/bfs/openplatform/74f9c17b07a36f2fdb059c9ba65024846f149490.png"
+            "cutscene_char003401_3.png": "https://i0.hdslb.com/bfs/openplatform/e3809c7a5cd9b4d02226f439a7babe735b532f90.png"
+          idle: loop_2
+          interaction: b_cut
+          # 仅保留 B 段：loop_2 待机，点击 b_cut 后返回。
+          scene_steps:
+            - { id: B, label: 场景 B, animation: b_cut, idle: loop_2, bounds_prefix: B_ }
+        - id: teresse-001106-ultimate
+          name: Teresse · Medical Club — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/teresse-001106-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/teresse-001106-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char001106.png": "https://i0.hdslb.com/bfs/openplatform/4b592d02d2444c6f6e4156e8f92f50fc6458f49b.png"
+            "cutscene_char001106_2.png": "https://i0.hdslb.com/bfs/openplatform/244d12e21a377508d7b8e360c5aa0debcbde39f5.png"
+            "cutscene_char001106_3.png": "https://i0.hdslb.com/bfs/openplatform/b9dc56983b8339421b6e7ef2d57df6136adecf71.png"
+          idle: loop_2
+          interaction: cut_B
+          # 仅保留 B 段：loop_2 待机，点击播放 cut_B 一次，然后返回 loop_2。
+          scene_steps:
+            - { id: B, label: 场景 B, animation: cut_B, idle: loop_2, bounds_prefix: B_ }
+        - id: teresse-001106-dating
+          name: Teresse · Medical Club — Fated Guest
+          category: scene
+          skeleton: /assets/spine-mascot/models/teresse-001106-dating/skeleton.skel
+          atlas: /assets/spine-mascot/models/teresse-001106-dating/skeleton.atlas
+          texture_urls:
+            "illust_dating4.png": "https://i0.hdslb.com/bfs/openplatform/59d67474a253e6c49cc7a5dd4efa7a480ff92035.png"
+            "illust_dating4_2.png": "https://i0.hdslb.com/bfs/openplatform/017b5a27f791bdf4a2f3abb148ad34e2d0a78b37.png"
+            "illust_dating4_3.png": "https://i0.hdslb.com/bfs/openplatform/a07481142bb5ff6ac28028abc731ef46f94741ed.png"
+            "illust_dating4_4.png": "https://i0.hdslb.com/bfs/openplatform/3c49f1ce13c30e30c11d772968b095a3db3a7e15.png"
+            "illust_dating4_5.png": "https://i0.hdslb.com/bfs/openplatform/92e918fd3f6bf0d21f836fe5a25e0bc339bd4432.png"
+            "illust_dating4_6.png": "https://i0.hdslb.com/bfs/openplatform/9b5912c4d5f4121af81ddc011cc0dc74ace8a67f.png"
+          idle: idle1
+          interaction: motion1_28
+          # 只使用这两个完整动画：idle1 待机，点击播放 motion1_28 一次，再返回 idle1。
+          scene_steps:
+            - { id: story, label: 剧情互动, animation: motion1_28, idle: idle1 }
+        - id: teresse-001197-dating
+          name: Teresse · Milky Bikini — Fated Guest
+          category: scene
+          skeleton: /assets/spine-mascot/models/teresse-001197-dating/skeleton.skel
+          atlas: /assets/spine-mascot/models/teresse-001197-dating/skeleton.atlas
+          texture_urls:
+            "illust_dating9.png": "https://i0.hdslb.com/bfs/openplatform/9102a07de37c2fba75789f3168a98ff38af9de17.png"
+            "illust_dating9_2.png": "https://i0.hdslb.com/bfs/openplatform/31cd43d9a0dfa3d96797dda0fc4664a7556ac421.png"
+            "illust_dating9_3.png": "https://i0.hdslb.com/bfs/openplatform/340c3fee4ecdc13394234b12ec0152b8b49f6288.png"
+            "illust_dating9_4.png": "https://i0.hdslb.com/bfs/openplatform/281947bb45246f43f920704225b8558446b9c79d.png"
+            "illust_dating9_5.png": "https://i0.hdslb.com/bfs/openplatform/28e8e38e1e7e4c85061fc7c4dbc37c0d7eb35501.png"
+            "illust_dating9_6.png": "https://i0.hdslb.com/bfs/openplatform/e96858b16571b0f1f3340a12cfe77209c1e6d8d6.png"
+            "illust_dating9_7.png": "https://i0.hdslb.com/bfs/openplatform/fade5746ccd13345cd10979d7d5c4071ace7021a.png"
+            "illust_dating9_8.png": "https://i0.hdslb.com/bfs/openplatform/9c8df2451f1d2e1ff9750c09d5498a5c529fa806.png"
+            "illust_dating9_9.png": "https://i0.hdslb.com/bfs/openplatform/30ef2a028e1376b85b49b62ee702206c39b8b02b.png"
+            "illust_dating9_10.png": "https://i0.hdslb.com/bfs/openplatform/c968a9a8e8f1606f4dd32f8ad0bb2b1de3599706.png"
+            "illust_dating9_11.png": "https://i0.hdslb.com/bfs/openplatform/76a6fc48ae8ece66201116dcd40e856281652332.png"
+            "illust_dating9_12.png": "https://i0.hdslb.com/bfs/openplatform/36b64ca3c521e68fc79248567f086ab7331239a1.png"
+            "illust_dating9_13.png": "https://i0.hdslb.com/bfs/openplatform/c80539f2fe2bfe9f7de385895c98a34d278d8b50.png"
+          idle: idle1
+          interaction: motion1_37
+          scene_steps:
+            - { id: story, label: 剧情互动, animation: motion1_37, idle: idle1 }
+          hidden_slots: [black, black2, black3, black4]
+          # 去掉四侧实心黑色遮幅；保留原画窗口，并让边缘在窗口内渐隐至透明。
+          scene_crop: { x: -1220, y: -1558, width: 2435, height: 3144 }
+          scene_feather: { left: 150, right: 150, top: 150, bottom: 150 }
+    # 星期三：Mamonir、Michaela、Palette 的立绘和演出，以及 Helena · Rising Star 立绘，Spine 4.1.11；模型在博客本地
+    3:
+      id: mamonir-067803
+      name: Mamonir · Miracle Marine
+      category: character
+      menu_order: [palette-004201, michaela-067401, mamonir-067803, helena-061092]
+      skeleton: /assets/spine-mascot/models/mamonir-067803/skeleton.skel
+      atlas: /assets/spine-mascot/models/mamonir-067803/skeleton.atlas
+      texture_urls:
+        "char067803.png": "https://i0.hdslb.com/bfs/openplatform/e2f37458997f5b820b9a74396965720c9b43ebaf.png"
+      idle: idle
+      interaction: motion
+      variants:
+        - id: michaela-067401
+          name: Michaela · Beachside Justice
+          category: character # 右键选择“立绘”，再在“造型”里切换
+          skeleton: /assets/spine-mascot/models/michaela-067401/skeleton.skel
+          atlas: /assets/spine-mascot/models/michaela-067401/skeleton.atlas
+          texture_urls:
+            "char067401.png": "https://i0.hdslb.com/bfs/openplatform/ff27af28dae9c6dda4e7b86fb1ae65be1e8ee856.png"
+          idle: idle
+          interaction: motion
+        - id: palette-004201
+          name: Palette · Shattered Dream
+          category: character
+          skeleton: /assets/spine-mascot/models/palette-004201/skeleton.skel
+          atlas: /assets/spine-mascot/models/palette-004201/skeleton.atlas
+          texture_urls:
+            "char004201.png": "https://i0.hdslb.com/bfs/openplatform/168c1868877225f5f460a06bd5f33845833067e9.png"
+          idle: idle
+          interaction: motion
+        - id: helena-061092
+          name: Helena · Rising Star
+          category: character
+          skeleton: /assets/spine-mascot/models/helena-061092/skeleton.skel
+          atlas: /assets/spine-mascot/models/helena-061092/skeleton.atlas
+          texture_urls:
+            "char061092.png": "https://i0.hdslb.com/bfs/openplatform/7d0f2f0819b1c1beb529adba6c921c2e45823efd.png"
+          idle: idle
+          interaction: motion
+        - id: mamonir-067803-ultimate
+          name: Mamonir · Miracle Marine — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/mamonir-067803-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/mamonir-067803-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char067803.png": "https://i0.hdslb.com/bfs/openplatform/b627b143e4a9cf14c434aaaa4082eaf4b7c21a36.png"
+            "cutscene_char067803_2.png": "https://i0.hdslb.com/bfs/openplatform/dfaebcea8cb930ecf3d699cee1c4613bf6aeb015.png"
+            "cutscene_char067803_3.png": "https://i0.hdslb.com/bfs/openplatform/be1a92d53b9d3acf9b485daedefcc46eb07c5fdd.png"
+            "cutscene_char067803_4.png": "https://i0.hdslb.com/bfs/openplatform/27392ae96b0fd32c0760fcc51f58dead39275460.png"
+          idle: cut_A
+          interaction: cut_A
+          # cut_A 前 1.67 秒循环，点击播放余下 4 秒；循环接缝混合 0.2 秒。
+          scene_steps:
+            - { id: A, label: 互动, animation: cut_A, idle: cut_A, idle_range: [0, 1.6666667461395264], interaction_range: [1.6666667461395264, 5.6666669845581055], idle_mix: 0.2, bounds_prefix: A_ }
+        - id: michaela-067403-ultimate
+          name: Michaela · Acting Archbishop — Ultimate
+          category: scene # 右键菜单选择“场景”即可切换到第二种状态
+          skeleton: /assets/spine-mascot/models/michaela-067403-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/michaela-067403-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char067403.png": "https://i0.hdslb.com/bfs/openplatform/63c266f65046716151fa8485b0f354564c10c2f4.png"
+            "cutscene_char067403_2.png": "https://i0.hdslb.com/bfs/openplatform/773f200c1876f7073614e49bd6a8cea1ea1ebefd.png"
+            "cutscene_char067403_3.png": "https://i0.hdslb.com/bfs/openplatform/2810a2b78eb8997b0758ccb439c01fb06dd4edbc.png"
+          idle: loop
+          interaction: cut_A # 和 loop 配套，演出一次后回到循环
+          interaction_label: 演出
+        - id: palette-004202-ultimate
+          name: Palette · Miracle Violet — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/palette-004202-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/palette-004202-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char004202.png": "https://i0.hdslb.com/bfs/openplatform/9b59105be5353a4db48ce1d48ad0aa6e7f2fc5d5.png"
+            "cutscene_char004202_2.png": "https://i0.hdslb.com/bfs/openplatform/d4eb2ec15b543d89a04b41852f6ec35bf58c1b2b.png"
+            "cutscene_char004202_3.png": "https://i0.hdslb.com/bfs/openplatform/0035dd9fb7961c2f5edb694e3ba32db3bcd86b35.png"
+            "cutscene_char004202_4.png": "https://i0.hdslb.com/bfs/openplatform/a1ae4a5c162aa565fa54d9fde9825c74847b990c.png"
+          idle: cut_A
+          interaction: cut_A
+          attack: cut_B
+          speed: 0.75
+          # A：cut_A 前 2 秒循环，点击播放余下 5 秒后返回；头发接缝混合 0.2 秒。
+          # B 保持 loop_2/cut_B；B 组槽位前缀为小写 b_。
+          scene_steps:
+            - { id: A, label: 场景 A, animation: cut_A, idle: cut_A, idle_range: [0, 2], interaction_range: [2, 7.00000048], idle_mix: 0.2, bounds_prefix: A_ }
+            - { id: B, label: 场景 B, animation: cut_B, idle: loop_2, bounds_prefix: b_ }
+        - id: palette-004202-dating
+          name: Palette · Miracle Violet — Fated Guest
+          category: scene
+          skeleton: /assets/spine-mascot/models/palette-004202-dating/skeleton.skel
+          atlas: /assets/spine-mascot/models/palette-004202-dating/skeleton.atlas
+          texture_urls:
+            "illust_dating17.png": "https://i0.hdslb.com/bfs/openplatform/8654bdc0e85152a323df57899ec11ddd9a6e1bff.png"
+            "illust_dating17_2.png": "https://i0.hdslb.com/bfs/openplatform/c36a11932d6795fccd6eea446371f5bffc3cf313.png"
+            "illust_dating17_3.png": "https://i0.hdslb.com/bfs/openplatform/c8a01f2945f4f4e7c1374bd88a65141c686b6cff.png"
+            "illust_dating17_4.png": "https://i0.hdslb.com/bfs/openplatform/f44dfdb32750589b3ecf3191751160b04d600980.png"
+            "illust_dating17_5.png": "https://i0.hdslb.com/bfs/openplatform/7660e80ef21416f0c6ae628b90e9019036920d2e.png"
+            "illust_dating17_6.png": "https://i0.hdslb.com/bfs/openplatform/f2d802738e50e629dc3736001de64e2a7fadbfd4.png"
+            "illust_dating17_7.png": "https://i0.hdslb.com/bfs/openplatform/fe1a22352242ad9242239b3bfd98868433f29ceb.png"
+            "illust_dating17_8.png": "https://i0.hdslb.com/bfs/openplatform/65975e9c4a83e5e62df646ce884d477169f92ee5.png"
+          idle: idle1
+          interaction: motion1_26 # 素材实际名称；点击播放一次后回到 idle1
+          scene_steps:
+            - { id: story, label: 剧情互动, animation: motion1_26, idle: idle1 }
+          hidden_slots: [B_BG_black, B_BG_black2, B_BG_black3, B_BG_black4]
+          # 内窗保持画面尺寸；四侧按原遮幅宽度向透明羽化，去掉黑框并裁掉窗外备用部件。
+          scene_crop: { x: -1791, y: -964, width: 3441, height: 2146 }
+          scene_feather: { left: 368, right: 596, top: 416, bottom: 446 }
+    # 星期四：Nekyndalia、Aquila 的立绘与演出，Granhildr 立绘和剧情场景，以及 Elise 剧情场景；Spine 4.1.11，本地素材
+    4:
+      id: nekyndalia-004302
+      name: Nekyndalia · Unraveling Mummy
+      category: character
+      skeleton: /assets/spine-mascot/models/nekyndalia-004302/skeleton.skel
+      atlas: /assets/spine-mascot/models/nekyndalia-004302/skeleton.atlas
+      texture_urls:
+        "char004302.png": "https://i0.hdslb.com/bfs/openplatform/dcc1f4b368285402280acbe80e9013f1aa1992a3.png"
+      idle: idle
+      interaction: motion
+      variants:
+        - id: nekyndalia-004301
+          name: Nekyndalia · Deadeye
+          category: character
+          skeleton: /assets/spine-mascot/models/nekyndalia-004301/skeleton.skel
+          atlas: /assets/spine-mascot/models/nekyndalia-004301/skeleton.atlas
+          texture_urls:
+            "char004301.png": "https://i0.hdslb.com/bfs/openplatform/718facc2faccdde59471fc2591a9aa04c096d959.png"
+          idle: idle
+          interaction: motion
+        - id: nekyndalia-004302-ultimate
+          name: Nekyndalia · Unraveling Mummy — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/nekyndalia-004302-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/nekyndalia-004302-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char004302.png": "https://i0.hdslb.com/bfs/openplatform/fb5516879ce93aad7f587edcc02b34ec83596943.png"
+            "cutscene_char004302_2.png": "https://i0.hdslb.com/bfs/openplatform/09d683ebf55ba09acb6f090d1d1906912178a09f.png"
+            "cutscene_char004302_3.png": "https://i0.hdslb.com/bfs/openplatform/8d68f7f58276c3fcd8b6fba94e211349eb84b84c.png"
+            "cutscene_char004302_4.png": "https://i0.hdslb.com/bfs/openplatform/e60a349af4f18b7ab8648153061ecb1f519a0491.png"
+          idle: loop
+        - id: aquila-067902
+          name: Aquila · Sealed Desires
+          category: character
+          skeleton: /assets/spine-mascot/models/aquila-067902/skeleton.skel
+          atlas: /assets/spine-mascot/models/aquila-067902/skeleton.atlas
+          texture_urls:
+            "char067902.png": "https://i0.hdslb.com/bfs/openplatform/c485e2058c9d4ba16bb2f1a378ab1d92b2e46c19.png"
+          idle: idle
+          interaction: motion
+        - id: aquila-067902-ultimate
+          name: Aquila · Sealed Desires — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/aquila-067902-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/aquila-067902-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char067902.png": "https://i0.hdslb.com/bfs/openplatform/abbbb3519a20b6d2a667630c5ebeb1238023d9bc.png"
+            "cutscene_char067902_2.png": "https://i0.hdslb.com/bfs/openplatform/90228e167a23ebab7047dc931ce3a18f8015cb94.png"
+            "cutscene_char067902_3.png": "https://i0.hdslb.com/bfs/openplatform/9f422ae93fdaf0ba2449a981d34bce36384380db.png"
+            "cutscene_char067902_4.png": "https://i0.hdslb.com/bfs/openplatform/dc8849d3c060dbdee4b17f3610df3277fa185c6d.png"
+            "cutscene_char067902_5.png": "https://i0.hdslb.com/bfs/openplatform/06442d90614dbbbd5a924b727d9b4afff4f8cd76.png"
+          idle: cut_A
+          interaction: cut_A
+          # 骨骼仅保留 cut_A；前 43 帧循环，点击后播放余段，再回到前段。
+          # 0.2 秒接缝混合平滑头发与符纸；不再单独加载或播放 loop。
+          scene_steps:
+            - { id: A, label: 互动, animation: cut_A, idle: cut_A, idle_range: [0, 1.433333396911621], interaction_range: [1.433333396911621, 8.333333969116211], idle_mix: 0.2, bounds_prefix: A_ }
+        - id: granhildr-067104
+          name: Granhildr · Combat Medic
+          category: character
+          skeleton: /assets/spine-mascot/models/granhildr-067104/skeleton.skel
+          atlas: /assets/spine-mascot/models/granhildr-067104/skeleton.atlas
+          texture_urls:
+            "char067104.png": "https://i0.hdslb.com/bfs/openplatform/d286efa750b3a13d8bde81aaf0a1e8e181f39d8a.png"
+          idle: idle
+          interaction: motion
+        - id: granhildr-067104-dating
+          name: Granhildr · Combat Medic — Fated Guest
+          category: scene
+          skeleton: /assets/spine-mascot/models/granhildr-067104-dating/skeleton.skel
+          atlas: /assets/spine-mascot/models/granhildr-067104-dating/skeleton.atlas
+          texture_urls:
+            "illust_dating19.png": "https://i0.hdslb.com/bfs/openplatform/e71b463a5cf16af59cfec19a40e3ef8b7d4d704d.png"
+            "illust_dating19_2.png": "https://i0.hdslb.com/bfs/openplatform/32aa5cea844562b97c5b201792831145f4bd169f.png"
+            "illust_dating19_3.png": "https://i0.hdslb.com/bfs/openplatform/3b5a8db7bcfe71535a502a33d36fb15ff7cbea59.png"
+            "illust_dating19_4.png": "https://i0.hdslb.com/bfs/openplatform/819c3fa01d72d35cb4325921706f1758b7f0f2ab.png"
+            "illust_dating19_5.png": "https://i0.hdslb.com/bfs/openplatform/e16b2bc122a63f8da3a8a21502d3a598ac330d91.png"
+            "illust_dating19_6.png": "https://i0.hdslb.com/bfs/openplatform/95c166c33c7567c6fde9f0aa51c6970ce1d45479.png"
+            "illust_dating19_7.png": "https://i0.hdslb.com/bfs/openplatform/3b33eb29172d54d4536e4b999f97ef20d392f3e2.png"
+            "illust_dating19_8.png": "https://i0.hdslb.com/bfs/openplatform/9a5ca63e1c64e2e47b25c1e06aafbcf094f5f4e1.png"
+          idle: idle1
+          interaction: motion1_18
+          scene_steps:
+            - { id: story, label: 剧情互动, animation: motion1_18, idle: idle1 }
+          hidden_slots: [black glow side_re, black glow side_re2, black glow side_re3, black glow side_re4]
+          # 按四侧遮幅内沿保留原画，沿原渐变宽度向外羽化到透明。
+          scene_crop: { x: -2139, y: -1848, width: 4285, height: 3721 }
+          scene_feather: { left: 162, right: 162, top: 162, bottom: 162 }
+        - id: elise-060802-dating
+          name: Elise · Code Name O — Fated Guest
+          category: scene
+          skeleton: /assets/spine-mascot/models/elise-060802-dating/skeleton.skel
+          atlas: /assets/spine-mascot/models/elise-060802-dating/skeleton.atlas
+          texture_urls:
+            "illust_dating5.png": "https://i0.hdslb.com/bfs/openplatform/1df820e5e27b463ff13ada115531be3f85f89cb3.png"
+            "illust_dating5_2.png": "https://i0.hdslb.com/bfs/openplatform/9239c46f0493ec62550eb328f834f10413add546.png"
+            "illust_dating5_3.png": "https://i0.hdslb.com/bfs/openplatform/3ba9dd8e050978a7316ede59a8249473d4d7e555.png"
+            "illust_dating5_4.png": "https://i0.hdslb.com/bfs/openplatform/0503a457b773a0c0f6db3d4fe89b9b6909ff81b6.png"
+            "illust_dating5_5.png": "https://i0.hdslb.com/bfs/openplatform/117837823cdd3614a14d2532694e7c80f599e2e2.png"
+            "illust_dating5_6.png": "https://i0.hdslb.com/bfs/openplatform/a05baf0981e5d4f6421b11c6c5ec3298ce6df6cc.png"
+            "illust_dating5_7.png": "https://i0.hdslb.com/bfs/openplatform/caf7036cb746ddba6ff94f4cabb32909a7d0be89.png"
+          idle: mix2_29_1
+          interaction: mix2_30_1
+          # 两段 mix 共用 idle2 的 IK/变换约束；底层持续循环，上层待机与点击互动切换。
+          scene_steps:
+            - { id: story, label: 剧情互动, animation: mix2_30_1, idle: mix2_29_1, idle_base: idle2, interaction_track: 1 }
+          # 固定原画面范围，保留内部阴影，沿四边向透明柔和过渡。
+          scene_crop: { x: -2219, y: -2195, width: 4438, height: 4078 }
+          scene_feather: { left: 120, right: 120, top: 120, bottom: 120 }
+    # 星期五：Tyr 立绘与演出，Ventana 立绘与温泉剧情场景；素材均在本地
+    5:
+      id: tyr-004192
+      name: Tyr · Clumsy Wuff
+      category: character
+      skeleton: /assets/spine-mascot/models/tyr-004192/skeleton.skel
+      atlas: /assets/spine-mascot/models/tyr-004192/skeleton.atlas
+      texture_urls:
+        "char004192.png": "https://i0.hdslb.com/bfs/openplatform/9369f3fce14b64449915565e2a4f3523cdbc70bb.png"
+      idle: idle
+      interaction: motion
+      variants:
+        - id: tyr-004192-ultimate
+          name: Tyr · Clumsy Wuff — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/tyr-004192-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/tyr-004192-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char004192.png": "https://i0.hdslb.com/bfs/openplatform/4600bc76e7b656b94788f270478247ec1a2d2ee1.png"
+            "cutscene_char004192_2.png": "https://i0.hdslb.com/bfs/openplatform/2b34851ac68e2bd8a8a76b70c5c3c8bee936ad30.png"
+            "cutscene_char004192_3.png": "https://i0.hdslb.com/bfs/openplatform/2a5eed42e7eb5682ef7e91bf34aed7ecaa69cc9c.png"
+            "cutscene_char004192_4.png": "https://i0.hdslb.com/bfs/openplatform/bc46c274aa2dbb95f0d4a24a0db8c32c802f3f42.png"
+          idle: loop2 # 初次进入场景默认显示图中的 B 组；手动选择后记住所选 A/B
+          interaction: A_cut
+          attack: B_cut
+          # A/B 手动选择只切换循环；点击角色才播放对应 cut 一次，结束后回到 loop。
+          scene_steps:
+            - { id: A, label: 场景 A, animation: A_cut, idle: loop, bounds_prefix: A_ }
+            - { id: B, label: 场景 B, animation: B_cut, idle: loop2, bounds_prefix: B_ }
+        - id: tyr-004102
+          name: Tyr · Innocent Bunny
+          category: character
+          skeleton: /assets/spine-mascot/models/tyr-004102/skeleton.skel
+          atlas: /assets/spine-mascot/models/tyr-004102/skeleton.atlas
+          texture_urls:
+            "char004102.png": "https://i0.hdslb.com/bfs/openplatform/3b4d591aeba440afe8320a1567df06d510a3422a.png"
+          idle: idle
+          interaction: motion
+        - id: tyr-004101
+          name: Tyr · Starlight Guardian
+          category: character
+          skeleton: /assets/spine-mascot/models/tyr-004101/skeleton.skel
+          atlas: /assets/spine-mascot/models/tyr-004101/skeleton.atlas
+          texture_urls:
+            "char004101.png": "https://i0.hdslb.com/bfs/openplatform/494bd640f48c7e803cbb44210f57da133ed0f7bb.png"
+          idle: idle
+          interaction: motion
+        - id: tyr-004101-ultimate
+          name: Tyr · Starlight Guardian — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/tyr-004101-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/tyr-004101-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char004101.png": "https://i0.hdslb.com/bfs/openplatform/c70c1fdd27743016404517f4f92185aa54b20919.png"
+            "cutscene_char004101_2.png": "https://i0.hdslb.com/bfs/openplatform/75bfe0bb3627967c6f96d367c954f55dc114dcc6.png"
+            "cutscene_char004101_3.png": "https://i0.hdslb.com/bfs/openplatform/b9d7367bc51e60f016ebea8bae0d009d8a4dfa8b.png"
+            "cutscene_char004101_4.png": "https://i0.hdslb.com/bfs/openplatform/91ed1785f149f28bd74f17402e8d2aa64840155e.png"
+          idle: loop_2
+          interaction: cut_B
+          # 仅使用截图选中的 B 组：loop_2 循环，点击 cut_B 一次后返回。
+          scene_steps:
+            - { id: B, label: 演出, animation: cut_B, idle: loop_2, bounds_prefix: B_ }
+        - id: tyr-004102-ultimate
+          name: Tyr · Innocent Bunny — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/tyr-004102-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/tyr-004102-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char004102.png": "https://i0.hdslb.com/bfs/openplatform/b2426c8b4b9cee9b7c59fbdd0af61f8d57113aff.png"
+            "cutscene_char004102_2.png": "https://i0.hdslb.com/bfs/openplatform/ea55e19d828fdfbdfe338bd9b9f25a18349e5fa5.png"
+          idle: loop_2
+          interaction: B_cut
+          # 仅使用截图选中的 B 组：loop_2 循环，点击 B_cut 一次后返回。
+          scene_steps:
+            - { id: B, label: 演出, animation: B_cut, idle: loop_2, bounds_prefix: B_, bounds_exclude: [A_] }
+        - id: ventana-067004
+          name: Ventana · Onsen Practitioner
+          category: character
+          skeleton: /assets/spine-mascot/models/ventana-067004/skeleton.skel
+          atlas: /assets/spine-mascot/models/ventana-067004/skeleton.atlas
+          texture_urls:
+            "char067004.png": "https://i0.hdslb.com/bfs/openplatform/d93e159e2061d7942dee3fcc6b38a7bed767a5e6.png"
+          idle: idle
+          interaction: motion
+        - id: ventana-067004-dating
+          name: Ventana · Onsen Practitioner — Fated Guest
+          category: scene
+          skeleton: /assets/spine-mascot/models/ventana-067004-dating/skeleton.skel
+          atlas: /assets/spine-mascot/models/ventana-067004-dating/skeleton.atlas
+          texture_urls:
+            "illust_dating15.png": "https://i0.hdslb.com/bfs/openplatform/53bbfca20ad47677fa71dbdb3308855505f21e84.png"
+            "illust_dating15_2.png": "https://i0.hdslb.com/bfs/openplatform/4d15433b801ffa71ad3fa787a2af1da3ec9ea033.png"
+            "illust_dating15_3.png": "https://i0.hdslb.com/bfs/openplatform/e8dde9e52438edb5e3e83d5f751e43984b30d517.png"
+            "illust_dating15_4.png": "https://i0.hdslb.com/bfs/openplatform/25fccfb35f33ed439c2c53a5eb2d94d48e84964c.png"
+            "illust_dating15_5.png": "https://i0.hdslb.com/bfs/openplatform/f57b0173076c002694055a0ce2a9fa05cba44cde.png"
+            "illust_dating15_6.png": "https://i0.hdslb.com/bfs/openplatform/9e5c071ee1917a8260b8980edf18df44f9cba0b2.png"
+            "illust_dating15_7.png": "https://i0.hdslb.com/bfs/openplatform/1ef900ef3a767438e5d316648a1ca2e875ae6d7d.png"
+          idle: idle3
+          interaction: mix3_35_1
+          # idle3 保持基础呼吸和发丝；点击时将 mix3_35_1 叠加播放一次。
+          scene_steps:
+            - { id: story, label: 剧情互动, animation: mix3_35_1, idle: idle3, interaction_track: 1 }
+          hidden_slots: [FR]
+          scene_crop: { x: -1500, y: -1196, width: 3006, height: 2426 }
+          scene_feather: { left: 100, right: 98, top: 92, bottom: 87 }
+    # 星期六：Loen、Olivier、Eclipse 立绘与场景，Darian 立绘与 Dalvi 剧情场景；素材均在本地
+    6:
+      id: loen-003203
+      name: Loen · Celebrity Bunny
+      category: character
+      skeleton: /assets/spine-mascot/models/loen-003203/skeleton.skel
+      atlas: /assets/spine-mascot/models/loen-003203/skeleton.atlas
+      texture_urls:
+        "char003203.png": "https://i0.hdslb.com/bfs/openplatform/d614926a47fda50d4b9732c2e357c6ec7295ff91.png"
+      idle: idle
+      interaction: motion
+      variants:
+        - id: loen-003203-dating
+          name: Loen · Celebrity Bunny — Fated Guest
+          category: scene
+          skeleton: /assets/spine-mascot/models/loen-003203-dating/skeleton.skel
+          atlas: /assets/spine-mascot/models/loen-003203-dating/skeleton.atlas
+          texture_urls:
+            "illust_dating3.png": "https://i0.hdslb.com/bfs/openplatform/5d1863844e38a5a0c89295734b05c2e05656c963.png"
+            "illust_dating3_2.png": "https://i0.hdslb.com/bfs/openplatform/8e92215e5e28c40faaa958c347baac41cd163952.png"
+            "illust_dating3_3.png": "https://i0.hdslb.com/bfs/openplatform/3631c9dccd0fd3f170722de747fd6469792e0c8e.png"
+            "illust_dating3_4.png": "https://i0.hdslb.com/bfs/openplatform/1bbfa78975b383f611cc29744a7196dac6216f76.png"
+            "illust_dating3_5.png": "https://i0.hdslb.com/bfs/openplatform/ef5ab51c3816e0aaebd3ccf1c2d7abe0f1eb8c63.png"
+            "illust_dating3_6.png": "https://i0.hdslb.com/bfs/openplatform/95a0e521607ec36e89d371547ed75f9649afb163.png"
+            "illust_dating3_7.png": "https://i0.hdslb.com/bfs/openplatform/89f784e390ca2b4be253296a7624821ebc63abfe.png"
+            "illust_dating3_8.png": "https://i0.hdslb.com/bfs/openplatform/d4d319fcb45bd6e7e1aff65965ed595e89e5c3e5.png"
+          idle: idle1
+          interaction: motion1_20
+          # 只使用这一组：idle1 持续循环，点击播放 motion1_20 一次后返回。
+          scene_steps:
+            - { id: story, label: 剧情互动, animation: motion1_20, idle: idle1 }
+        - id: olivier-003604
+          name: Olivier · Retired Legend
+          category: character
+          skeleton: /assets/spine-mascot/models/olivier-003604/skeleton.skel
+          atlas: /assets/spine-mascot/models/olivier-003604/skeleton.atlas
+          texture_urls:
+            "char003604.png": "https://i0.hdslb.com/bfs/openplatform/03e9c11f5c7e28c5965983be2b1bf41cc65af563.png"
+          idle: idle
+          interaction: motion
+        - id: olivier-003604-ultimate
+          name: Olivier · Retired Legend — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/olivier-003604-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/olivier-003604-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char003604.png": "https://i0.hdslb.com/bfs/openplatform/dbc0521c0ab88a3e7eb9cde78045eae15eda5b07.png"
+            "cutscene_char003604_2.png": "https://i0.hdslb.com/bfs/openplatform/2c3d84d205e4988cc2f03afb3c59e32ae73cc606.png"
+            "cutscene_char003604_3.png": "https://i0.hdslb.com/bfs/openplatform/6d72453a967891eac1ad30c3ca3b1d26969e9871.png"
+            "cutscene_char003604_4.png": "https://i0.hdslb.com/bfs/openplatform/665a2401f3660bfc898e890459b28acd2a917ccc.png"
+          idle: loop
+          interaction: A_cut
+          scene_steps:
+            - id: sequence
+              label: 演出
+              animation: A_cut
+              idle: loop
+              # A_cut 最后约 0.43 秒主体定格；剪尾后直接返回 loop。
+              interaction_range: [0, 4.333333492279053]
+              # 爆开的爱心特效不参与镜头取景，避免撑大整个播放器。
+              bounds_exclude: [A_heart_b_]
+        - id: darian-004002
+          name: Darian · Bittersweet Bunny
+          category: character
+          skeleton: /assets/spine-mascot/models/darian-004002/skeleton.skel
+          atlas: /assets/spine-mascot/models/darian-004002/skeleton.atlas
+          texture_urls:
+            "char004002.png": "https://i0.hdslb.com/bfs/openplatform/382986bed5e27558022a3ac75783b440f09a3f02.png"
+          idle: idle
+          interaction: motion
+        - id: eclipse-000708
+          name: Eclipse · Dream Bride
+          category: character
+          skeleton: /assets/spine-mascot/models/eclipse-000708/skeleton.skel
+          atlas: /assets/spine-mascot/models/eclipse-000708/skeleton.atlas
+          texture_urls:
+            "char000708.png": "https://i0.hdslb.com/bfs/openplatform/da44d307423e53784ea565345a78dd0e997cfd1f.png"
+          idle: idle
+          interaction: motion
+        - id: eclipse-000706-dating
+          name: Eclipse · Nightmare Bunny — Fated Guest
+          category: scene
+          skeleton: /assets/spine-mascot/models/eclipse-000706-dating/skeleton.skel
+          atlas: /assets/spine-mascot/models/eclipse-000706-dating/skeleton.atlas
+          texture_urls:
+            "illust_dating11.png": "https://i0.hdslb.com/bfs/openplatform/b3a67c37f4dd2b6840c3cfa0d597e2a443961e94.png"
+            "illust_dating11_2.png": "https://i0.hdslb.com/bfs/openplatform/860b02baa637448e45fcc9b626a9366284f230f3.png"
+            "illust_dating11_3.png": "https://i0.hdslb.com/bfs/openplatform/d6907629388d7cda9d78573a84234427beabc657.png"
+            "illust_dating11_4.png": "https://i0.hdslb.com/bfs/openplatform/143e3617469a0de611c233e4ac758fdf34399cd9.png"
+            "illust_dating11_5.png": "https://i0.hdslb.com/bfs/openplatform/7b520d15bd9c62e29d6eb241e27d6ed5ff030fdc.png"
+            "illust_dating11_6.png": "https://i0.hdslb.com/bfs/openplatform/f5e481f4958c866c067b6d833cfd4b5391e5b592.png"
+            "illust_dating11_7.png": "https://i0.hdslb.com/bfs/openplatform/c4486eea9a8c1e8d6e6a5477c2e828e2151d5a60.png"
+          idle: idle2
+          interaction: motion2_1
+          # 同一个场景提供三组待机与互动，按用户指定顺序排列。
+          scene_steps:
+            - { id: scene1, label: 场景 1, animation: motion2_1, idle: idle2 }
+            - { id: scene2, label: 场景 2, animation: motion3_0, idle: idle3 }
+            - { id: scene3, label: 场景 3, animation: motion2_2, idle: idle2 }
+          # 移除画面外的黑色遮幅，按原遮幅的透明窗口保留四周柔和过渡。
+          hidden_slots: ['fr (1013)']
+          scene_crop: { x: -1868, y: -1957, width: 3796, height: 3888 }
+          scene_feather: { left: 350, right: 319, top: 305, bottom: 339 }
+        - id: dalvi-061302-dating
+          name: Dalvi · Bright Moon — Fated Guest
+          category: scene
+          skeleton: /assets/spine-mascot/models/dalvi-061302-dating/skeleton.skel
+          atlas: /assets/spine-mascot/models/dalvi-061302-dating/skeleton.atlas
+          texture_urls:
+            "illust_dating20.png": "https://i0.hdslb.com/bfs/openplatform/2aef02a3ddc7e5b20d21c53753b94a6086e9082d.png"
+            "illust_dating20_2.png": "https://i0.hdslb.com/bfs/openplatform/f88895a32e5e45ec4850db490e10a56c2fd39006.png"
+            "illust_dating20_3.png": "https://i0.hdslb.com/bfs/openplatform/a0470123d80cc96eec91a6a3218044e5d70e3680.png"
+            "illust_dating20_4.png": "https://i0.hdslb.com/bfs/openplatform/101023df1621b396c1937af2467cbf41a0289770.png"
+            "illust_dating20_5.png": "https://i0.hdslb.com/bfs/openplatform/bba71a07de1864bd71e8d554eadec1fd87903475.png"
+            "illust_dating20_6.png": "https://i0.hdslb.com/bfs/openplatform/706b9db79d8f128fe297c5a36459ae754d76e6cd.png"
+            "illust_dating20_7.png": "https://i0.hdslb.com/bfs/openplatform/3c50d68efaa4e28bbf03b747824392433c56f18a.png"
+            "illust_dating20_8.png": "https://i0.hdslb.com/bfs/openplatform/2574866d52f544f256c2df8a5acb43a6b3906ab2.png"
+          idle: idle6
+          interaction: motion6_3
+          scene_steps:
+            - { id: story, label: 剧情互动, animation: motion6_3, idle: idle6 }
+          # 去除四侧黑色遮幅，按原透明渐变宽度保留画面柔边。
+          hidden_slots: [B_BG_black, B_BG_black4, B_BG_black3, B_BG_black2]
+          scene_crop: { x: -1375, y: -1559, width: 2724, height: 2616 }
+          scene_feather: { left: 151, right: 151, top: 207, bottom: 141 }
+    # 星期日：Wilhelmina、Diana、Ren、Zenith 立绘，以及 Diana、Blade、Zenith 场景
+    7:
+      id: wilhelmina-067603
+      name: Wilhelmina · Water Park Queen
+      category: character
+      skeleton: /assets/spine-mascot/models/wilhelmina-067603/skeleton.skel
+      atlas: /assets/spine-mascot/models/wilhelmina-067603/skeleton.atlas
+      texture_urls:
+        "char067603.png": "https://i0.hdslb.com/bfs/openplatform/41405a5e580560d57252441f1fbeab0e605d64ce.png"
+      idle: idle
+      interaction: motion
+      variants:
+        - id: diana-002406-ultimate
+          name: Diana · Anti-dystopia — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/diana-002406-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/diana-002406-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char002406.png": "https://i0.hdslb.com/bfs/openplatform/faf7a0cfa60c18dcd98b9622ec70b88589368e6a.png"
+            "cutscene_char002406_2.png": "https://i0.hdslb.com/bfs/openplatform/551678fe38209911706ce673ef75eeafecb03e97.png"
+            "cutscene_char002406_3.png": "https://i0.hdslb.com/bfs/openplatform/64c87940b69b8e5f92a4a509a4631f88aa4621a1.png"
+          idle: B_cut_1
+          interaction: B_cut_2
+          scene_steps:
+            - { id: B, label: 互动, animation: B_cut_2, idle: B_cut_1, bounds_prefix: B_ }
+        - id: diana-002403
+          name: Diana · Magical Innovator
+          category: character
+          skeleton: /assets/spine-mascot/models/diana-002403/skeleton.skel
+          atlas: /assets/spine-mascot/models/diana-002403/skeleton.atlas
+          texture_urls:
+            "char002403.png": "https://i0.hdslb.com/bfs/openplatform/e8e2d3ef30439cdc7da11afb51db196b37de1132.png"
+          idle: idle
+          interaction: motion
+        - id: diana-002403-ultimate
+          name: Diana · Magical Innovator — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/diana-002403-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/diana-002403-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char002403.png": "https://i0.hdslb.com/bfs/openplatform/deef5b1312b251c5e8d39ac833f90e9a2f1749b4.png"
+            "cutscene_char002403_2.png": "https://i0.hdslb.com/bfs/openplatform/7ca6e4665973ca296f0a86f1442c59c20ea16020.png"
+            "cutscene_char002403_3.png": "https://i0.hdslb.com/bfs/openplatform/ab42a4be2fb162cd476befc66ae196b3cc0b0f7d.png"
+            "cutscene_char002403_4.png": "https://i0.hdslb.com/bfs/openplatform/f0855ca3aad6eb4ede1fbf619129d93001081909.png"
+          idle: cut_B
+          interaction: cut_B
+          # 默认使用 B 组前段循环；两组各自点击演出一次后返回对应待机。
+          # cut_B 在 2 秒进入互动：前 2 秒循环，点击播放 2–6 秒。
+          scene_steps:
+            - { id: A, label: 场景 A, animation: cut_A, idle: loop, bounds_prefix: A_ }
+            - { id: B, label: 场景 B, animation: cut_B, idle: cut_B, idle_range: [0, 2], interaction_range: [2, 6.000000476837158], idle_mix: 0.2, bounds_prefix: B_ }
+        - id: blade-003793-ultimate
+          name: Blade · Tender Dream — Ultimate
+          category: scene
+          skeleton: /assets/spine-mascot/models/blade-003793-ultimate/skeleton.skel
+          atlas: /assets/spine-mascot/models/blade-003793-ultimate/skeleton.atlas
+          texture_urls:
+            "cutscene_char003793.png": "https://i0.hdslb.com/bfs/openplatform/4ebe7122d95b07f464d569aa9777596e0db5a768.png"
+            "cutscene_char003793_2.png": "https://i0.hdslb.com/bfs/openplatform/c963a620b411f797b5a79f992d7a8b933ea252cf.png"
+            "cutscene_char003793_3.png": "https://i0.hdslb.com/bfs/openplatform/214833505122237bb109000a05769dc8ffab3bc2.png"
+          idle: loop_2
+          interaction: B_cut
+          scene_steps:
+            - { id: B, label: 演出, animation: B_cut, idle: loop_2, bounds_prefix: B_ }
+        - id: ren-yamashiro-021391
+          name: Ren Yamashiro · Role Reversal
+          category: character
+          skeleton: /assets/spine-mascot/models/ren-yamashiro-021391/skeleton.skel
+          atlas: /assets/spine-mascot/models/ren-yamashiro-021391/skeleton.atlas
+          texture_urls:
+            "char021391.png": "https://i0.hdslb.com/bfs/openplatform/f3ffdb70f526da13cf681fdacdb13d898b93803c.png"
+          idle: idle
+          interaction: motion
+        - id: zenith-061404
+          name: Zenith · Poolside Guardian
+          category: character
+          skeleton: /assets/spine-mascot/models/zenith-061404/skeleton.skel
+          atlas: /assets/spine-mascot/models/zenith-061404/skeleton.atlas
+          texture_urls:
+            "char061404.png": "https://i0.hdslb.com/bfs/openplatform/213c536e0c666991932e995ade4de186bbfc9e80.png"
+          idle: idle
+          interaction: motion
+        - id: zenith-061492-dating
+          name: Zenith · Stranger Bunny — Fated Guest
+          category: scene
+          skeleton: /assets/spine-mascot/models/zenith-061492-dating/skeleton.skel
+          atlas: /assets/spine-mascot/models/zenith-061492-dating/skeleton.atlas
+          texture_urls:
+            "illust_dating12.png": "https://i0.hdslb.com/bfs/openplatform/d55772727b0c8db389f9a011610cdc3fe5f9f6d6.png"
+            "illust_dating12_2.png": "https://i0.hdslb.com/bfs/openplatform/1cbaff1ba339a6f5eb649fdcc85786c7009a0ac6.png"
+            "illust_dating12_3.png": "https://i0.hdslb.com/bfs/openplatform/a6536a8ae9336aaf080596c8084d57736e3b5f2c.png"
+            "illust_dating12_4.png": "https://i0.hdslb.com/bfs/openplatform/475325249a5103715e8fcddf48fd77112b8656f5.png"
+            "illust_dating12_5.png": "https://i0.hdslb.com/bfs/openplatform/e33497469b3a32f364238b967b5663a2b2730587.png"
+            "illust_dating12_6.png": "https://i0.hdslb.com/bfs/openplatform/c638e10b85d10f385d0d71226fd778aeb9476772.png"
+            "illust_dating12_7.png": "https://i0.hdslb.com/bfs/openplatform/173574bea817c4fbc57097ed3f2d352c9b837fb6.png"
+            "illust_dating12_8.png": "https://i0.hdslb.com/bfs/openplatform/3d5a3b6f9efef2775c3ad7f92161707f3e6ca3f9.png"
+            "illust_dating12_9.png": "https://i0.hdslb.com/bfs/openplatform/e84fa1032a4501dfffe53942a8eb85ba27a30a95.png"
+            "illust_dating12_10.png": "https://i0.hdslb.com/bfs/openplatform/8aaf6ccca59704972ec2bde11b6bcf0a511162a8.png"
+          idle: idle1
+          interaction: motion1_35
+          scene_steps:
+            - { id: scene1, label: 场景 1, animation: motion1_35, idle: idle1 }
+            - { id: scene2, label: 场景 2, animation: mix3_46_1, idle: idle3, interaction_track: 1 }
+            # 待机仍显示 idle2，互动使用 mix3 的原生 idle3 约束，防止残留 idle2 腿部附件。
+            - { id: scene3, label: 场景 3, animation: mix3_8_1, idle: idle2, idle_base: idle3, interaction_track: 1 }
+          hidden_slots: [BK]
+          scene_crop: { x: -1673, y: -1840, width: 3304, height: 3535 }
+          scene_feather: { left: 124, right: 126, top: 128, bottom: 121 }

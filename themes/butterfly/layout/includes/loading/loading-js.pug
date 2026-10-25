@@ -1,0 +1,38 @@
+script.
+  var maintenanceMode = !{JSON.stringify(Boolean(theme.maintenance_mode && theme.maintenance_mode.enable))};
+  var preloader = {
+    endLoading: () => {
+      var loadingBox = document.getElementById('loading-box');
+      if (!loadingBox) return;
+      if (maintenanceMode) {
+        document.body.style.overflow = 'hidden';
+        loadingBox.classList.remove('loaded');
+        return;
+      }
+      document.body.style.overflow = 'auto';
+      loadingBox.classList.add('loaded');
+    },
+    initLoading: () => {
+      var loadingBox = document.getElementById('loading-box');
+      if (!loadingBox) return;
+      document.body.style.overflow = maintenanceMode ? 'hidden' : '';
+      loadingBox.classList.remove('loaded');
+    }
+  }
+  if (maintenanceMode) {
+    preloader.initLoading();
+    document.body.style.overflow = 'hidden';
+  } else {
+    var loadingFinished = false;
+    var finishLoading = function () {
+      if (loadingFinished) return;
+      loadingFinished = true;
+      preloader.endLoading();
+    };
+    if (document.readyState === 'complete') {
+      finishLoading();
+    } else {
+      window.addEventListener('load', finishLoading, { once: true });
+      window.setTimeout(finishLoading, 2500);
+    }
+  }

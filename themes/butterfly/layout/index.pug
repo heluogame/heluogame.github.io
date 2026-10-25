@@ -1,0 +1,63 @@
+extends includes/layout.pug
+
+block content
+  include ./includes/mixins/post-ui.pug
+  -
+    const allHomepagePosts = site.posts && site.posts.data ? site.posts.data : []
+    const allHomepageCategories = site.categories && site.categories.data ? site.categories.data : []
+    const cardSettings = site.data && Array.isArray(site.data.card) ? site.data.card : []
+    const normalizeHomeRoute = value => String(value || '').split('#')[0].split('?')[0].replace(/^\/+|\/+$/g, '')
+    const homeSections = Object.entries(theme.menu || []).reduce((sections, entry) => {
+      const label = entry[0]
+      const value = entry[1]
+      if (typeof value !== 'string') return sections
+      const href = value.split('||')[0].trim()
+      const route = normalizeHomeRoute(href)
+      const category = allHomepageCategories.find(item => normalizeHomeRoute(item.path) === route)
+      if (!category) return sections
+      const posts = allHomepagePosts.filter(article => {
+        const categories = article.categories && article.categories.data ? article.categories.data : []
+        return categories.some(item => normalizeHomeRoute(item.path) === route)
+      }).sort((a, b) => b.date.valueOf() - a.date.valueOf())
+      const quickview = cardSettings.find(settings => settings && !Array.isArray(settings) && typeof settings.card === 'string' && settings.card.trim() === category.name) || null
+      if (posts.length) sections.push({ label, href, route, posts, quickview })
+      return sections
+    }, [])
+    const currentHomePage = Number(page.current) || 1
+    const visibleHomeSections = currentHomePage > 1 ? homeSections.slice(0, 1) : homeSections
+    const homeNotice = site.data && site.data.notice || {}
+    const homeNoticeLinks = Array.isArray(homeNotice.links) ? homeNotice.links.filter(link => link && link.text && link.url) : []
+  if currentHomePage === 1 && (homeNotice.text || homeNoticeLinks.length)
+    aside.home-notice(aria-label='公告与教程')
+      .home-notice__label
+        i.fa-solid.fa-bullhorn(aria-hidden='true')
+        strong 公告
+      .home-notice__body
+        if homeNotice.text
+          p.home-notice__text(title=homeNotice.text)= homeNotice.text
+        if homeNoticeLinks.length
+          nav.home-notice__links(aria-label='教程入口')
+            each link in homeNoticeLinks
+              a(href=url_for(link.url))
+                span= link.text
+                i.fa-solid.fa-angle-right(aria-hidden='true')
+  each section, sectionIndex in visibleHomeSections
+    -
+      const sectionId = `home-section-${sectionIndex + 1}`
+      const sectionCards = sectionIndex === 0 ? page.posts : section.posts.slice(0, 5)
+    section.home-catalog-section(aria-labelledby=sectionId)
+      .home-catalog-section__header
+        .home-catalog-section__heading
+          span.home-catalog-section__marker(aria-hidden='true')
+          h2(id=sectionId)= section.label
+          span.home-catalog-section__eyebrow= `共 ${section.posts.length} 篇`
+        a.home-catalog-section__more(href=url_for(section.href) aria-label=`查看全部${section.label}`)
+          span 查看全部
+          i.fa-solid.fa-angle-right(aria-hidden='true')
+      .recent-posts.home-section-grid(id=sectionIndex === 0 ? 'recent-posts' : null)
+        +postUI(sectionCards, 'home-section', section.quickview)
+      if sectionIndex === 0 && page.total > 1
+        include includes/pagination.pug
+
+  include ./includes/game-quickview.pug
+  script(data-pjax defer src=url_for('/js/homepage-game-catalog.js'))

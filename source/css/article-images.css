@@ -1,0 +1,28 @@
+/* Keep image galleries compact without changing text-to-image spacing. */
+#article-container p > img:has(+ br + img),
+#article-container p > img:has(+ br + a > img),
+#article-container p > a:has(> img:only-child):has(+ br + img) > img,
+#article-container p > a:has(> img:only-child):has(+ br + a > img) > img {
+  margin-bottom: 2px !important;
+}
+
+#article-container p > img + br:has(+ img),
+#article-container p > img + br:has(+ a > img),
+#article-container p > a:has(> img:only-child) + br:has(+ img),
+#article-container p > a:has(> img:only-child) + br:has(+ a > img) {
+  display: none;
+}
+
+#article-container p:has(> img:only-child):has(+ p > img:only-child),
+#article-container p:has(> img:only-child):has(+ p > a:only-child > img:only-child),
+#article-container p:has(> a:only-child > img:only-child):has(+ p > img:only-child),
+#article-container p:has(> a:only-child > img:only-child):has(+ p > a:only-child > img:only-child) {
+  margin-bottom: 2px;
+}
+
+#article-container p:has(> img:only-child):has(+ p > img:only-child) > img,
+#article-container p:has(> img:only-child):has(+ p > a:only-child > img:only-child) > img,
+#article-container p:has(> a:only-child > img:only-child):has(+ p > img:only-child) > a > img,
+#article-container p:has(> a:only-child > img:only-child):has(+ p > a:only-child > img:only-child) > a > img {
+  margin-bottom: 0;
+}

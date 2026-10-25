@@ -1,0 +1,15 @@
+# 卡片弹窗配置，保存后刷新本地预览即可。
+# card：填写文章分类名，例如游戏；不是导航显示名精品游戏。
+# 只有 card 填写并匹配的栏目才弹窗；card 留空或未配置的栏目直接打开文章。
+# 新增栏目时复制下面一组。title：顶部标题；detail、review：标签页文字。
+# 五个图标都在这里修改；没有填写的图标使用默认值。
+
+- card: 游戏
+  icon: fa-solid fa-gamepad # 顶部图标
+  date_icon: fa-regular fa-calendar # 发布时间图标
+  platform_icon: fa-solid fa-desktop # 支持平台图标
+  status_icon: fa-regular fa-circle-check # 资源状态图标
+  size_icon: fa-solid fa-box-archive # 资源大小图标
+  title: 游戏详情
+  detail: 详情
+  review: 游戏评价
