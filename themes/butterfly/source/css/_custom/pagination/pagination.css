@@ -9,14 +9,14 @@
 
 @media screen and (min-width: 768px) {
   #pagination .page-number.current:hover {
-    background: var(--bbftt-theme);
-    box-shadow: var(--bbftt-shadow-theme);
-    color: var(--bbftt-white);
+    background: var(--heluogame-theme);
+    box-shadow: var(--heluogame-shadow-theme);
+    color: var(--heluogame-white);
   }
 
   #pagination a.extend.next:hover,
   #pagination a.extend.prev:hover {
-    color: var(--bbftt-theme);
+    color: var(--heluogame-theme);
     border: var(--style-border-hover);
     transform: scale(1.03);
   }
@@ -26,9 +26,9 @@
   }
 
   #pagination .page-number.current {
-    background: var(--bbftt-theme);
+    background: var(--heluogame-theme);
     border: var(--style-border-hover);
-    box-shadow: var(--bbftt-shadow-theme);
+    box-shadow: var(--heluogame-shadow-theme);
   }
 
   #pagination a.extend.next {
@@ -40,8 +40,8 @@
     width: 5rem !important;
     line-height: 1.9rem !important;
     border-radius: 8px !important;
-    background: var(--bbftt-card-bg);
-    box-shadow: var(--bbftt-shadow-border);
+    background: var(--heluogame-card-bg);
+    box-shadow: var(--heluogame-shadow-border);
     border: var(--style-border);
     display: flex !important;
     align-items: center;
@@ -52,18 +52,18 @@
   }
 
   #pagination .page-number {
-    background: var(--bbftt-card-bg);
+    background: var(--heluogame-card-bg);
     border-radius: 8px !important;
     margin: 0 0.3rem;
-    box-shadow: var(--bbftt-shadow-border);
+    box-shadow: var(--heluogame-shadow-border);
     border: var(--style-border);
     transition: 0.3s;
   }
 
   #pagination .page-number:hover {
-    color: var(--bbftt-theme);
+    color: var(--heluogame-theme);
     border: var(--style-border-hover);
-    box-shadow: var(--bbftt-shadow-main);
+    box-shadow: var(--heluogame-shadow-main);
   }
 }
 
@@ -176,7 +176,7 @@ a#toPageButton {
   justify-content: center;
   align-items: center;
   transition: 0.3s;
-  background: var(--bbftt-card-bg);
+  background: var(--heluogame-card-bg);
   border: var(--style-border-always);
   cursor: pointer;
 }
@@ -195,7 +195,7 @@ a#toPageButton {
   right: 6px;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--bbftt-secondbg);
-  border: 1px solid var(--bbftt-none);
+  background: var(--heluogame-secondbg);
+  border: 1px solid var(--heluogame-none);
   border-radius: 4px;
 }

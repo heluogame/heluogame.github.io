@@ -7,6 +7,7 @@
   let targetUrl = ''
   let answer = ''
   let returnFocus = null
+  let returnFocusByKeyboard = false
   let pendingButton = null
   let requestVersion = 0
   let failCount = 0
@@ -39,8 +40,20 @@
       modal.querySelector('.post-pan-captcha__logo').removeAttribute('src')
     }
     const previous = returnFocus
+    const byKeyboard = returnFocusByKeyboard
     returnFocus = null
-    if (previous && document.contains(previous)) previous.focus({ preventScroll: true })
+    returnFocusByKeyboard = false
+    if (previous && document.contains(previous)) {
+      const portraitCard = previous.closest('.home-section-card.is-portrait')
+      if (portraitCard && !byKeyboard) {
+        // 鼠标关闭时不把焦点锁在隐藏的下载区，让移出卡片后正常收起。
+        if (document.activeElement === previous) previous.blur()
+      } else {
+        // 先聚焦常显标题展开下载区，再把键盘焦点放回原按钮。
+        if (portraitCard) portraitCard.querySelector('.portrait-card__title').focus({ preventScroll: true })
+        previous.focus({ preventScroll: true })
+      }
+    }
   }
 
   const closeCaptcha = () => {
@@ -161,6 +174,8 @@
         </div>
       </form>`
     document.body.appendChild(modal)
+    modal.addEventListener('keydown', () => { returnFocusByKeyboard = true })
+    modal.addEventListener('pointerdown', () => { returnFocusByKeyboard = false })
     modal.addEventListener('submit', event => {
       event.preventDefault()
       verifyCaptcha()
@@ -294,6 +309,7 @@
     if (!button) return
     event.preventDefault()
     if (pendingButton || button.disabled || (modal && modal.open)) return
+    returnFocusByKeyboard = event.detail === 0
     pendingButton = button
     const version = ++requestVersion
     const previousBusy = button.getAttribute('aria-busy')

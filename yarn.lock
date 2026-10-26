@@ -3039,7 +3039,7 @@ htmlclean@~3.0.8:
   resolved "https://registry.npmmirror.com/htmlclean/-/htmlclean-3.0.8.tgz"
   integrity sha512-pxe6KHAQFvn407iNVNs8jpQ43BSy0w2VJ7DOUrbl/wOOy33RgDR1IcOplYqseQBBcdJLEozzeL9RziGCdK2Zsg==
 
-htmlparser2@^7.0.0:
+htmlparser2@^7.0.0, htmlparser2@7.2.0:
   version "7.2.0"
   resolved "https://registry.npmmirror.com/htmlparser2/-/htmlparser2-7.2.0.tgz"
   integrity sha512-H7MImA4MS6cw7nbyURtLPO1Tms7C5H602LRETv95z1MxO/7CP7rDVROehUYeYBUYEON94NXXDEPmZuq+hX4sog==

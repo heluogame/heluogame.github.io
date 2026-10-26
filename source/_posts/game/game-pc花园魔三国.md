@@ -49,4 +49,4 @@ quark: https://pan.quark.cn/
 解压码: ziyanghua
 {% endpanDownload %}
 
-解压方法：<a href="/posts/14694">点击教程</a>
+解压方法：<a href="/posts/1">点击教程</a>

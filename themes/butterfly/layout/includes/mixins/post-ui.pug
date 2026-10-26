@@ -1,3 +1,21 @@
+mixin postCardDateMeta(article)
+  if (theme.post_meta.page.date_type === 'both')
+    i.far.fa-calendar-alt
+    span.article-meta-label=_p('post.created')
+    time.post-meta-date-created(datetime=date_xml(article.date) title=_p('post.created') + ' ' + full_date(article.date))=date(article.date, config.date_format)
+    span.article-meta-separator |
+    i.fas.fa-history
+    span.article-meta-label=_p('post.updated')
+    time.post-meta-date-updated(datetime=date_xml(article.updated) title=_p('post.updated') + ' ' + full_date(article.updated))=date(article.updated, config.date_format)
+  else
+    - let data_type_updated = theme.post_meta.page.date_type === 'updated'
+    - let date_type = data_type_updated ? 'updated' : 'date'
+    - let date_icon = data_type_updated ? 'fas fa-history' :'far fa-calendar-alt'
+    - let date_title = data_type_updated ? _p('post.updated') : _p('post.created')
+    i(class=date_icon)
+    span.article-meta-label=date_title
+    time(datetime=date_xml(article[date_type]) title=date_title + ' ' + full_date(article[date_type]))=date(article[date_type], config.date_format)
+
 mixin postUI(posts, catalogMode, quickviewConfig)
   - const articleList = posts ? (posts.data || posts) : page.posts.data
   - const platformOptions = { android: { label: '安卓', icon: 'fa-android' }, ios: { label: 'iOS', icon: 'fa-apple' }, windows: { label: 'Windows', icon: 'fa-windows' } }
@@ -12,16 +30,20 @@ mixin postUI(posts, catalogMode, quickviewConfig)
       let post_cover = article.cover
       let no_cover = article.cover === false || !theme.cover.index_enable ? 'no-cover' : ''
         const isHomeSectionCard = catalogMode === 'home-section'
-        const isGameCatalogCard = isHomeSectionCard && Boolean(quickviewConfig)
-        const gameTags = isGameCatalogCard && Array.isArray(article.game_tags) ? article.game_tags.filter(Boolean) : []
-        const gameReview = isGameCatalogCard && article.game_review ? String(article.game_review) : ''
-        const gameStatus = isGameCatalogCard && article.game_status != null ? String(article.game_status).trim() : ''
-        const gameSize = isGameCatalogCard && article.game_size != null ? String(article.game_size).trim() : ''
-        const gameBadge = isGameCatalogCard && typeof article.game_badge === 'string' ? article.game_badge.trim() : ''
-        const gamePlatforms = isGameCatalogCard && Array.isArray(article.game_platforms) ? [...new Set(article.game_platforms.filter(value => typeof value === 'string').map(value => value.trim().toLowerCase()))].filter(value => Object.prototype.hasOwnProperty.call(platformOptions, value)).map(value => platformOptions[value]) : []
-        const catalogCardClass = isHomeSectionCard ? `home-section-card uses-game-card-style${isGameCatalogCard ? ' has-game-quickview' : ''}` : ''
+        const isPortraitCard = isHomeSectionCard && quickviewConfig && quickviewConfig.orientation === 'portrait'
+        const isGameCatalogCard = isHomeSectionCard && Boolean(quickviewConfig) && quickviewConfig.popup !== false
+        const portraitData = isPortraitCard ? catalog_portrait_data(article) : null
+        const cardMeta = isGameCatalogCard ? catalog_card_meta(article) : null
+        const cardTags = cardMeta ? cardMeta.tags : []
+        const cardReview = cardMeta ? cardMeta.review : ''
+        const cardStatus = cardMeta ? cardMeta.status : ''
+        const cardSize = cardMeta ? cardMeta.size : ''
+        const cardPlatforms = cardMeta ? cardMeta.platforms : []
+        const gameBadge = (isGameCatalogCard || isPortraitCard) && typeof article.game_badge === 'string' ? article.game_badge.trim() : ''
+        const gamePlatforms = (isGameCatalogCard || isPortraitCard) && Array.isArray(article.game_platforms) ? [...new Set(article.game_platforms.filter(value => typeof value === 'string').map(value => value.trim().toLowerCase()))].filter(value => Object.prototype.hasOwnProperty.call(platformOptions, value)).map(value => platformOptions[value]) : []
+        const catalogCardClass = isHomeSectionCard ? `home-section-card uses-game-card-style${isGameCatalogCard ? ' has-game-quickview' : ''}${isPortraitCard ? ' is-portrait' : ''}` : ''
     -
-    .recent-post-item(class=catalogCardClass data-quickview-config=isGameCatalogCard ? JSON.stringify(quickviewConfig) : null data-game-url=isGameCatalogCard ? url_for(link) : null data-game-title=isGameCatalogCard ? title : null data-game-cover=isGameCatalogCard && post_cover ? url_for(post_cover) : null data-game-tags=isGameCatalogCard ? JSON.stringify(gameTags) : null data-game-review=isGameCatalogCard ? gameReview : null data-game-status=isGameCatalogCard ? gameStatus : null data-game-size=isGameCatalogCard ? gameSize : null data-game-platforms=isGameCatalogCard ? gamePlatforms.map(platform => platform.label).join(' / ') : null)
+    .recent-post-item(class=catalogCardClass data-card-orientation=isHomeSectionCard ? (isPortraitCard ? 'portrait' : 'landscape') : null data-quickview-config=isGameCatalogCard ? JSON.stringify(quickviewConfig) : null data-game-url=isGameCatalogCard ? url_for(link) : null data-game-title=isGameCatalogCard ? title : null data-game-cover=isGameCatalogCard && post_cover ? url_for(post_cover) : null data-game-tags=isGameCatalogCard ? JSON.stringify(cardTags) : null data-game-review=isGameCatalogCard ? cardReview : null data-game-status=isGameCatalogCard ? cardStatus : null data-game-size=isGameCatalogCard ? cardSize : null data-game-platforms=isGameCatalogCard ? cardPlatforms.join(' / ') : null)
       if post_cover && theme.cover.index_enable
         .post_cover(class=leftOrRight)
           a(href=url_for(link) title=title data-no-pjax=isGameCatalogCard ? 'true' : null)
@@ -35,6 +57,37 @@ mixin postUI(posts, catalogMode, quickviewConfig)
                     each platform in gamePlatforms
                       span.game-card-platform(role='img' aria-label=`支持${platform.label}` data-tooltip=`支持${platform.label}`)
                         i.fa-brands(class=platform.icon aria-hidden='true')
+      else if isPortraitCard
+        .post_cover.portrait-card__placeholder
+          a(href=url_for(link) title=title aria-label=title data-no-pjax=isGameCatalogCard ? 'true' : null)
+            i.fa-regular.fa-image(aria-hidden='true')
+      if isPortraitCard
+        .portrait-card__body
+          h2.portrait-card__heading
+            if theme.post_meta.page.date_type
+              span.portrait-card__date
+                span.post-meta-date
+                  +postCardDateMeta(article)
+              span.portrait-card__separator(aria-hidden='true') |
+            a.portrait-card__title(href=url_for(link) title=title data-no-pjax=isGameCatalogCard ? 'true' : null)= title
+          if portraitData.tags.length
+            .portrait-card__tags
+              each tag in portraitData.tags
+                span(title=tag)= tag
+          .portrait-card__actions
+            if portraitData.downloads.length
+              .portrait-card__download-box
+                i.fa-solid.fa-download(aria-hidden='true')
+                .portrait-card__downloads
+                  each download in portraitData.downloads
+                    button.post-pan-download__item.portrait-card__download(type='button' class=`is-${download.type}` data-pan-p=download.payload || null data-pan-s=download.iv || null data-pan-k=download.key || null disabled=download.disabled aria-disabled=download.disabled ? 'true' : null aria-haspopup=download.disabled ? null : 'dialog' title=download.disabled ? `${download.label}链接待补充` : download.label)
+                      span.post-pan-download__mark
+                        img(src=url_for(download.image) alt='' loading='lazy')
+                      span.post-pan-download__name= download.label
+            else
+              a.portrait-card__open(href=url_for(link) data-no-pjax=isGameCatalogCard ? 'true' : null)
+                span 查看详情
+                i.fa-solid.fa-arrow-right(aria-hidden='true')
       .recent-post-info(class=no_cover)
         a.article-title(href=url_for(link) title=title data-no-pjax=isGameCatalogCard ? 'true' : null)= title
         .article-meta-wrap
@@ -45,22 +98,7 @@ mixin postUI(posts, catalogMode, quickviewConfig)
               span.article-meta-separator |
           if (theme.post_meta.page.date_type)
             span.post-meta-date
-              if (theme.post_meta.page.date_type === 'both')
-                i.far.fa-calendar-alt
-                span.article-meta-label=_p('post.created')
-                time.post-meta-date-created(datetime=date_xml(article.date) title=_p('post.created') + ' ' + full_date(article.date))=date(article.date, config.date_format)
-                span.article-meta-separator |
-                i.fas.fa-history
-                span.article-meta-label=_p('post.updated')
-                time.post-meta-date-updated(datetime=date_xml(article.updated) title=_p('post.updated') + ' ' + full_date(article.updated))=date(article.updated, config.date_format)
-              else
-                - let data_type_updated = theme.post_meta.page.date_type === 'updated'
-                - let date_type = data_type_updated ? 'updated' : 'date'
-                - let date_icon = data_type_updated ? 'fas fa-history' :'far fa-calendar-alt'
-                - let date_title = data_type_updated ? _p('post.updated') : _p('post.created')
-                i(class=date_icon)
-                span.article-meta-label=date_title
-                time(datetime=date_xml(article[date_type]) title=date_title + ' ' + full_date(article[date_type]))=date(article[date_type], config.date_format)
+              +postCardDateMeta(article)
           if (!isHomeSectionCard && theme.post_meta.page.categories && article.categories.data.length > 0)
             span.article-meta
               span.article-meta-separator |

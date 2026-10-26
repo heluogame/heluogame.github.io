@@ -1,10 +1,26 @@
-# 卡片弹窗配置，保存后刷新本地预览即可。
+# 首页栏目卡片与弹窗配置，保存后刷新本地预览即可。
 # card：填写文章分类名，例如游戏；不是导航显示名精品游戏。
-# 只有 card 填写并匹配的栏目才弹窗；card 留空或未配置的栏目直接打开文章。
+# orientation：landscape（横屏，默认）或 portrait（竖屏）；也可填写“横屏”“竖屏”。
+# 横竖参数只影响首页；点击“查看全部”后的分类页保持原来的样式。
+# popup：是否点击卡片弹窗；false 直接打开文章，未填写时保持原来的弹窗行为。
+# card 留空或未配置的栏目保留原来的横屏样式，点击直接打开文章。
 # 新增栏目时复制下面一组。title：顶部标题；detail、review：标签页文字。
 # 五个图标都在这里修改；没有填写的图标使用默认值。
+# 每篇文章顶部的通用信息（写在文章的两条 --- 之间，不填在本文件）：
+# card_status: 正常       # 资源状态
+# card_size: 1.8GB        # 资源大小
+# card_platforms: [windows, android, ios] # 弹窗支持平台文字；可写macos、linux、Web等
+# card_review: "#使用说明" # 长内容引用正文标题，注意保留引号
+# 正文写“## 使用说明”，下面可写步骤、图片和代码块；弹窗自动读取该节。
+# 短内容仍可直接填写文字，或使用 card_review: | 缩进写多行。
+# card_tags: [汉化, 完结]  # 可选的卡片标签；不自动使用文章 tags
+# 游戏专用字段仅 game_badge（左上文字）、game_platforms（右上平台图标）。
+# card_platforms 与封面图标独立；未填写时兼容旧 game_platforms，显式 [] 则清空文字。
+# 兼容旧 game_status/game_size/game_review/game_tags；同时填写时优先使用 card_*。
 
 - card: 游戏
+  orientation: landscape # 横屏：landscape；竖屏：portrait
+  popup: true # 只想改变卡片外观、不需要弹窗时填 false
   icon: fa-solid fa-gamepad # 顶部图标
   date_icon: fa-regular fa-calendar # 发布时间图标
   platform_icon: fa-solid fa-desktop # 支持平台图标
@@ -13,3 +29,15 @@
   title: 游戏详情
   detail: 详情
   review: 游戏评价
+
+- card: 存档
+  orientation: landscape # 横屏：landscape；竖屏：portrait
+  popup: true # 只想改变卡片外观、不需要弹窗时填 false
+  icon: fa-solid fa-floppy-disk # 顶部图标
+  date_icon: fa-regular fa-calendar # 发布时间图标
+  platform_icon: fa-solid fa-desktop # 支持平台图标
+  status_icon: fa-regular fa-circle-check # 资源状态图标
+  size_icon: fa-solid fa-box-archive # 资源大小图标
+  title: 游戏存档
+  detail: 详情
+  review: 使用说明

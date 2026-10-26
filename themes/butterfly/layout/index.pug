@@ -5,7 +5,6 @@ block content
   -
     const allHomepagePosts = site.posts && site.posts.data ? site.posts.data : []
     const allHomepageCategories = site.categories && site.categories.data ? site.categories.data : []
-    const cardSettings = site.data && Array.isArray(site.data.card) ? site.data.card : []
     const normalizeHomeRoute = value => String(value || '').split('#')[0].split('?')[0].replace(/^\/+|\/+$/g, '')
     const homeSections = Object.entries(theme.menu || []).reduce((sections, entry) => {
       const label = entry[0]
@@ -19,7 +18,7 @@ block content
         const categories = article.categories && article.categories.data ? article.categories.data : []
         return categories.some(item => normalizeHomeRoute(item.path) === route)
       }).sort((a, b) => b.date.valueOf() - a.date.valueOf())
-      const quickview = cardSettings.find(settings => settings && !Array.isArray(settings) && typeof settings.card === 'string' && settings.card.trim() === category.name) || null
+      const quickview = catalog_card_settings(category.name)
       if (posts.length) sections.push({ label, href, route, posts, quickview })
       return sections
     }, [])

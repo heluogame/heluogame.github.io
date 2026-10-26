@@ -19,6 +19,114 @@
     if (element) element.textContent = value || '--'
   }
 
+  function setReviewText (dialog, value) {
+    var box = query(dialog, '[data-game-quickview-review]')
+    if (!box) return
+    box.classList.remove('is-markdown')
+    box.replaceChildren()
+    box.textContent = value
+  }
+
+  function isReviewReference (value) {
+    return /^#[^\r\n]+$/.test(String(value || '').trim())
+  }
+
+  function decodeReviewTarget (value) {
+    try {
+      return decodeURIComponent(value).trim()
+    } catch (error) {
+      return value.trim()
+    }
+  }
+
+  function headingText (heading) {
+    var clone = heading.cloneNode(true)
+    clone.querySelectorAll('.headerlink, [hidden], [aria-hidden="true"], script, style').forEach(function (node) {
+      node.remove()
+    })
+    return clone.textContent.replace(/\s+/g, ' ').trim()
+  }
+
+  function safeReviewUrl (value, isLink) {
+    var compact = String(value || '').replace(/[\u0000-\u0020\u007f-\u009f]/g, '')
+    if (!compact) return false
+    if (compact.charAt(0) === '#') return isLink
+    if (!isLink && /^(?:blob:|data:image\/(?:png|gif|jpe?g|webp|avif|bmp);)/i.test(compact)) return true
+    try {
+      var protocol = new URL(compact, window.location.href).protocol
+      return /^https?:$/.test(protocol) || (isLink && /^(?:mailto|tel):$/.test(protocol))
+    } catch (error) {
+      return false
+    }
+  }
+
+  function sanitizeReviewFragment (fragment) {
+    fragment.querySelectorAll('script, style, link, iframe, object, embed, base, meta, template, svg, math, input, textarea, select').forEach(function (node) {
+      node.remove()
+    })
+    fragment.querySelectorAll('form').forEach(function (form) {
+      form.replaceWith.apply(form, Array.from(form.childNodes))
+    })
+    fragment.querySelectorAll('*').forEach(function (element) {
+      Array.from(element.attributes).forEach(function (attribute) {
+        var name = attribute.name.toLowerCase()
+        if (/^on/.test(name) || /^(?:style|srcdoc|srcset|autofocus|form|action|formaction)$/.test(name)) {
+          element.removeAttribute(attribute.name)
+        } else if (/^(?:href|src|poster|xlink:href|background|cite)$/.test(name) && !safeReviewUrl(attribute.value, name === 'href' && element.tagName === 'A')) {
+          element.removeAttribute(attribute.name)
+        }
+      })
+      if (element.tagName === 'BUTTON') element.setAttribute('type', 'button')
+      if (element.tagName === 'A' && element.getAttribute('target') === '_blank') {
+        element.setAttribute('rel', ((element.getAttribute('rel') || '') + ' noopener noreferrer').trim())
+      }
+    })
+  }
+
+  function hasReviewContent (root) {
+    return Boolean(root.textContent.replace(/\u00a0/g, ' ').trim() || root.querySelector('img[src], video, audio, pre, code, table, hr'))
+  }
+
+  function renderReviewReference (dialog, value, article, pageUrl) {
+    if (!isReviewReference(value)) return
+    var target = decodeReviewTarget(value.trim().slice(1))
+    if (!target) {
+      setReviewText(dialog, '请在 # 后填写要引用的正文标题。')
+      return
+    }
+    var headings = Array.from(article.querySelectorAll('h1, h2, h3, h4, h5, h6'))
+    var heading = headings.find(function (node) {
+      return node.id && decodeReviewTarget(node.id) === target
+    }) || headings.find(function (node) {
+      return headingText(node) === target.replace(/\s+/g, ' ')
+    })
+    if (!heading) {
+      setReviewText(dialog, '未找到正文标题“' + target + '”，请检查引用名称。')
+      return
+    }
+    var level = Number(heading.tagName.slice(1))
+    var nextHeading = headings.slice(headings.indexOf(heading) + 1).find(function (node) {
+      return Number(node.tagName.slice(1)) <= level
+    })
+    var range = article.ownerDocument.createRange()
+    range.selectNodeContents(article)
+    range.setStartAfter(heading)
+    if (nextHeading) range.setEndBefore(nextHeading)
+    var fragment = prepareArticle(range.cloneContents(), pageUrl)
+    sanitizeReviewFragment(fragment)
+    Array.from(fragment.querySelectorAll('div, section, article, main, header, footer, aside, nav, span, p, ul, ol, li, blockquote, figure, figcaption')).reverse().forEach(function (node) {
+      if (!hasReviewContent(node)) node.remove()
+    })
+    if (!hasReviewContent(fragment)) {
+      setReviewText(dialog, '正文标题“' + target + '”下暂无内容。')
+      return
+    }
+    var box = query(dialog, '[data-game-quickview-review]')
+    if (!box) return
+    box.replaceChildren(fragment)
+    box.classList.add('is-markdown')
+  }
+
   function readCardTags (card) {
     try {
       var tags = JSON.parse(card.dataset.gameTags || '[]')
@@ -230,8 +338,7 @@
     setText(dialog, '[data-game-quickview-status]', card.dataset.gameStatus || '未填写')
     setText(dialog, '[data-game-quickview-size]', card.dataset.gameSize || '未填写')
     renderChips(dialog, readCardTags(card))
-    var reviewBox = query(dialog, '[data-game-quickview-review]')
-    if (reviewBox) reviewBox.textContent = review.trim() || '暂无评价内容'
+    setReviewText(dialog, isReviewReference(review) ? '正在载入引用内容…' : review.trim() || '暂无评价内容')
     setQuickviewTab(dialog, 'details')
     setImage(query(dialog, '[data-game-quickview-cover]'), cover, title)
     setImage(query(dialog, '[data-game-quickview-thumb]'), cover, title)
@@ -239,6 +346,7 @@
     dialog.querySelectorAll('[data-game-quickview-page-link]').forEach(function (link) {
       link.href = pageUrl
     })
+    return review
   }
 
   async function openQuickview (card, sourceLink) {
@@ -256,7 +364,7 @@
     var request = new AbortController()
     activeRequest = request
 
-    fillInitialState(dialog, card, pageUrl)
+    var review = fillInitialState(dialog, card, pageUrl)
     if (articleBox) articleBox.replaceChildren()
     if (downloadButton) downloadButton.hidden = true
     if (loading) loading.hidden = false
@@ -267,6 +375,7 @@
     try {
       var article = await fetchArticle(pageUrl, request.signal)
       if (activeRequest !== request) return
+      renderReviewReference(dialog, review, article, pageUrl)
       if (articleBox) articleBox.replaceChildren.apply(articleBox, Array.from(article.childNodes))
       var downloadTarget = findDownloadTarget(articleBox)
       if (downloadButton) downloadButton.hidden = !downloadTarget
@@ -278,6 +387,7 @@
       if (summary) summary.scrollTop = 0
     } catch (error) {
       if (error.name === 'AbortError' || activeRequest !== request) return
+      if (isReviewReference(review)) setReviewText(dialog, '引用内容暂时无法载入，请打开完整文章查看。')
       if (loading) loading.hidden = true
       if (body) body.hidden = false
       if (articleBox) {

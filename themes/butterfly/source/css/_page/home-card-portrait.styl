@@ -1,0 +1,489 @@
+// 竖版目录卡：仅覆盖 is-portrait，横版卡片继续使用原有样式。
+#content-inner .home-section-grid > .home-section-card.is-portrait
+  --portrait-card-title: #f3f4f6
+  --portrait-card-muted: #aeb4bc
+  --portrait-card-expanded-title: #111827
+  --portrait-card-expanded-muted: rgba(37, 48, 63, .68)
+  --portrait-card-tag-text: #334155
+  --portrait-card-tag-border: rgba(73, 139, 191, .3)
+  --portrait-card-tag-bg: rgba(255, 255, 255, .68)
+  --portrait-card-body-bg: linear-gradient(180deg, rgba(4, 9, 15, 0), rgba(4, 9, 15, .38) 34%, rgba(4, 9, 15, .84))
+  // 沿用参考卡的透明度与渐变位置，只把暖黄色换成蓝色。
+  --portrait-card-expanded-bg: linear-gradient(180deg, rgba(64, 168, 255, 0), rgba(64, 168, 255, .16) 20%, rgba(122, 202, 255, .66) 66%, rgba(92, 184, 255, .76))
+  --portrait-card-download-bg: linear-gradient(180deg, rgba(232, 246, 255, .72), rgba(186, 224, 255, .5))
+  --portrait-card-download-border: rgba(0, 122, 243, .36)
+  --portrait-card-download-icon: #008dff
+  --portrait-card-button-bg: rgba(255, 255, 255, .68)
+  --portrait-card-button-text: #111827
+  --portrait-card-button-hover: #007af3
+  --portrait-card-button-on-hover: #fff
+  --portrait-card-content-gap: 4px
+  --portrait-card-heading-size: 14px
+  --portrait-card-heading-weight: 600
+  --portrait-card-heading-height: 44px
+  --portrait-card-body-padding: 34px 13px 12px
+  position: relative
+  display: block
+  box-sizing: border-box
+  overflow: hidden
+  width: 100%
+  max-width: 100%
+  min-width: 0
+  height: auto
+  min-height: 0
+  padding: 0
+  aspect-ratio: unquote('10 / 16')
+  border: 0
+  border-radius: 8px
+  background: var(--game-catalog-panel-solid)
+  isolation: isolate
+
+  &:not(:hover):not(:has(:focus-visible))
+    box-shadow: 0 7px 22px rgba(0, 0, 0, .08)
+    transform: none
+
+    .post_cover img.post_bg
+      transform: none
+
+  &:hover,
+  &:has(:focus-visible)
+    --portrait-card-title: var(--portrait-card-expanded-title)
+    --portrait-card-muted: var(--portrait-card-expanded-muted)
+    --portrait-card-body-bg: var(--portrait-card-expanded-bg)
+    --portrait-card-heading-size: 15px
+    --portrait-card-heading-weight: 700
+    --portrait-card-heading-height: 46px
+    --portrait-card-body-padding: 54px 14px 13px
+    box-shadow: 0 22px 62px rgba(26, 126, 215, .26)
+
+    .portrait-card__heading
+      text-shadow: none
+
+    .portrait-card__actions
+      max-height: 180px
+      margin-top: var(--portrait-card-content-gap)
+      opacity: 1
+      visibility: visible
+      transform: translateY(0)
+      pointer-events: auto
+
+  // 日期和标题常显；下载区仅在悬浮或键盘聚焦时上浮展开。
+  > .recent-post-info
+    display: none
+
+  .post_cover,
+  .post_cover.right,
+  .portrait-card__placeholder
+    position: absolute
+    inset: 0
+    display: block
+    overflow: hidden
+    order: 0
+    flex: none
+    width: 100%
+    height: 100%
+    min-height: 0
+    aspect-ratio: auto
+    border-radius: inherit
+    background: linear-gradient(145deg, rgba(118, 153, 183, .28), rgba(26, 39, 55, .88))
+
+    > a
+      position: absolute
+      inset: 0
+      display: block
+      width: 100%
+      height: 100%
+
+    img.post_bg
+      display: block
+      width: 100%
+      height: 100%
+      max-width: none
+      margin: 0
+      object-fit: cover
+      object-position: center center
+
+  .portrait-card__placeholder > a
+    display: grid
+    color: rgba(255, 255, 255, .7)
+    font-size: unquote('clamp(38px, 5vw, 70px)')
+    place-items: center
+
+  // 非弹窗竖卡同样保留状态徽标和平台图标的位置。
+  .game-card-markers
+    position: absolute
+    z-index: 5
+    inset: 8px 8px auto
+    display: flex
+    align-items: flex-start
+    gap: 6px
+    min-width: 0
+    line-height: 1
+
+  .game-card-badge
+    display: block
+    overflow: hidden
+    min-width: 0
+    max-width: 66%
+    height: 22px
+    padding: 0 7px
+    border: 1px solid rgba(255, 255, 255, .6)
+    border-radius: 4px
+    background: rgba(248, 248, 248, .92)
+    color: #242424
+    font-size: 11px
+    font-weight: 600
+    line-height: 20px
+    text-overflow: ellipsis
+    white-space: nowrap
+
+  .game-card-platforms
+    display: flex
+    flex: 0 0 auto
+    gap: 4px
+    margin-left: auto
+
+  .game-card-platform
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    width: 22px
+    height: 22px
+    border: 1px solid rgba(255, 255, 255, .3)
+    border-radius: 5px
+    background: rgba(30, 30, 30, .68)
+    color: #fff
+    font-size: 14px
+
+  .portrait-card__body
+    position: absolute
+    right: 0
+    bottom: 0
+    left: 0
+    box-sizing: border-box
+    min-width: 0
+    border-radius: 0 0 8px 8px
+    transition: opacity .2s ease, visibility .2s ease, transform .2s ease
+
+  .portrait-card__date
+    display: inline
+    color: var(--portrait-card-muted)
+    font-size: 12px
+    font-weight: 600
+    line-height: 1.45
+    white-space: nowrap
+
+    > .post-meta-date
+      cursor: default
+
+    i
+      display: inline-block
+      margin: 0 4px 0 0
+      font-size: 12px
+
+    .article-meta-label
+      if hexo-config('post_meta.page.label')
+        padding-right: 4px
+      else
+        display: none
+
+    .article-meta-separator
+      display: none
+
+    time
+      min-width: 0
+      color: inherit
+
+  .portrait-card__separator
+    display: inline-block
+    margin: 0 5px
+    color: var(--portrait-card-muted)
+    font-size: 12px
+    font-weight: 600
+    line-height: 1.45
+
+  // 和 free 一样把日期与标题放进一个紧凑的两行摘要。
+  .portrait-card__heading
+    display: -webkit-box
+    overflow: hidden
+    width: 100%
+    height: var(--portrait-card-heading-height)
+    min-width: 0
+    margin: 0
+    color: var(--portrait-card-title)
+    font-size: var(--portrait-card-heading-size)
+    font-weight: var(--portrait-card-heading-weight)
+    line-height: 1.48
+    text-shadow: 0 1px 5px rgba(0, 0, 0, .46)
+    text-overflow: ellipsis
+    white-space: normal
+    word-break: break-all
+    overflow-wrap: anywhere
+    -webkit-box-orient: vertical
+    -webkit-line-clamp: 2
+
+  .portrait-card__title
+    display: inline
+    color: inherit
+    font-size: inherit
+    font-weight: inherit
+    line-height: inherit
+    text-decoration: none
+
+    &:hover
+      color: var(--portrait-card-title)
+
+  .portrait-card__body
+    z-index: 3
+    display: flex
+    flex-direction: column
+    gap: 0
+    max-height: calc(100% - 48px)
+    padding: var(--portrait-card-body-padding)
+    overflow-x: hidden
+    overflow-y: auto
+    background: var(--portrait-card-body-bg)
+    color: var(--portrait-card-title)
+    opacity: 1
+    visibility: visible
+    transform: none
+    pointer-events: auto
+    overscroll-behavior: contain
+    scrollbar-width: thin
+
+    > *
+      flex-shrink: 0
+
+    > * + *
+      margin-top: var(--portrait-card-content-gap)
+
+  .portrait-card__actions
+    overflow: hidden
+    max-height: 0
+    margin-top: 0
+    opacity: 0
+    visibility: hidden
+    transform: translateY(12px)
+    pointer-events: none
+    transition: max-height .22s ease, margin-top .22s ease, opacity .2s ease, visibility .2s ease, transform .22s ease
+
+  .portrait-card__tags
+    display: flex
+    flex-wrap: wrap
+    gap: 5px
+    overflow: hidden
+    min-width: 0
+    max-height: 49px
+
+    > span
+      display: inline-flex
+      align-items: center
+      box-sizing: border-box
+      overflow: hidden
+      min-width: 0
+      max-width: 100%
+      height: 22px
+      padding: 0 8px
+      border: 1px solid var(--portrait-card-tag-border)
+      border-radius: 999px
+      background: var(--portrait-card-tag-bg)
+      color: var(--portrait-card-tag-text)
+      font-size: 11px
+      font-weight: 600
+      line-height: 20px
+      text-overflow: ellipsis
+      white-space: nowrap
+
+  .portrait-card__download-box
+    display: grid
+    grid-template-columns: 34px minmax(0, 1fr)
+    align-items: center
+    width: 100%
+    min-width: 0
+    min-height: 62px
+    padding: 8px
+    border: 1px solid var(--portrait-card-download-border)
+    border-radius: 8px
+    background: var(--portrait-card-download-bg)
+
+    > i
+      display: inline-flex
+      align-items: center
+      justify-content: center
+      width: 28px
+      height: 28px
+      color: var(--portrait-card-download-icon)
+      font-size: 17px
+      text-align: center
+
+  // 与参考卡保持固定三列；不足三个时保留空位，按钮不再撑满整行。
+  .portrait-card__downloads
+    display: grid
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+    gap: 5px
+    min-width: 0
+
+  button.post-pan-download__item.portrait-card__download
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    gap: 4px
+    box-sizing: border-box
+    overflow: hidden
+    width: 100%
+    min-width: 0
+    height: 38px
+    margin: 0
+    padding: 0 4px
+    border: 1px solid var(--portrait-card-download-border)
+    border-radius: 6px
+    background: var(--portrait-card-button-bg)
+    color: var(--portrait-card-button-text)
+    cursor: pointer
+    font-family: inherit
+    font-size: 11px
+    font-weight: 700
+    line-height: 1.3
+    transition: background .18s ease, border-color .18s ease, color .18s ease
+
+    &:before,
+    &:after
+      display: none
+      content: none
+
+    &:hover:not(:disabled),
+    &:focus-visible
+      border-color: var(--portrait-card-button-hover)
+      background: var(--portrait-card-button-hover)
+      color: var(--portrait-card-button-on-hover)
+
+    &:disabled
+      opacity: .65
+      cursor: wait
+
+    .post-pan-download__mark
+      flex: 0 0 18px
+      width: 18px
+      height: 18px
+
+      img
+        display: block
+        width: 100%
+        height: 100%
+        max-width: 100%
+        margin: 0
+        object-fit: contain
+
+    .post-pan-download__name
+      display: block
+      min-width: 0
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+  .portrait-card__open
+    display: flex
+    align-items: center
+    justify-content: center
+    gap: 6px
+    box-sizing: border-box
+    width: 100%
+    min-width: 0
+    min-height: 36px
+    padding: 7px 10px
+    border: 1px solid var(--portrait-card-tag-border)
+    border-radius: 7px
+    background: var(--portrait-card-button-bg)
+    color: var(--portrait-card-button-text)
+    font-size: 12px
+    font-weight: 600
+    text-align: center
+    text-decoration: none
+
+  a:focus-visible,
+  button:focus-visible
+    outline: 2px solid var(--game-catalog-accent)
+    outline-offset: -2px
+
+[data-theme='dark'] #content-inner .home-section-grid > .home-section-card.is-portrait
+  --portrait-card-expanded-title: #f7fbff
+  --portrait-card-expanded-muted: rgba(222, 228, 236, .68)
+  --portrait-card-expanded-bg: linear-gradient(180deg, rgba(37, 146, 255, 0), rgba(37, 146, 255, .14) 20%, rgba(17, 65, 109, .72) 66%, rgba(8, 42, 75, .82))
+  --portrait-card-tag-text: #e5e7eb
+  --portrait-card-tag-border: rgba(159, 211, 255, .3)
+  --portrait-card-tag-bg: rgba(30, 41, 55, .8)
+  --portrait-card-download-bg: linear-gradient(180deg, rgba(12, 61, 103, .52), rgba(8, 38, 68, .46))
+  --portrait-card-download-border: rgba(70, 175, 255, .28)
+  --portrait-card-download-icon: #50c9ff
+  --portrait-card-button-bg: rgba(21, 38, 56, .78)
+  --portrait-card-button-text: #eaf7ff
+
+// 触屏没有悬浮操作，沿用参考卡做法，直接显示下载入口。
+@media (hover: none)
+  #content-inner .home-section-grid > .home-section-card.is-portrait
+    --portrait-card-title: var(--portrait-card-expanded-title)
+    --portrait-card-muted: var(--portrait-card-expanded-muted)
+    --portrait-card-body-bg: var(--portrait-card-expanded-bg)
+    --portrait-card-heading-size: 15px
+    --portrait-card-heading-weight: 700
+    --portrait-card-heading-height: 46px
+    --portrait-card-body-padding: 54px 14px 13px
+
+    .portrait-card__heading
+      text-shadow: none
+
+    .portrait-card__actions
+      max-height: 180px
+      margin-top: var(--portrait-card-content-gap)
+      opacity: 1
+      visibility: visible
+      transform: translateY(0)
+      pointer-events: auto
+
+@media screen and (max-width: 768px)
+  #content-inner .home-section-grid > .home-section-card.is-portrait
+    &:hover,
+    &:has(:focus-visible)
+      --portrait-card-body-padding: 52px 12px 9px
+
+    .portrait-card__tags
+      max-height: 22px
+
+    .portrait-card__download-box
+      grid-template-columns: 28px minmax(0, 1fr)
+      min-height: 66px
+      padding: 7px
+
+    .portrait-card__downloads
+      gap: 4px
+
+    button.post-pan-download__item.portrait-card__download
+      height: 36px
+      padding: 0 3px
+      font-size: 10px
+
+      .post-pan-download__mark
+        flex-basis: 16px
+        width: 16px
+        height: 16px
+
+@media screen and (max-width: 768px) and (hover: none)
+  #content-inner .home-section-grid > .home-section-card.is-portrait
+    --portrait-card-body-padding: 52px 12px 9px
+
+@media (prefers-reduced-motion: reduce)
+  #content-inner .home-section-grid > .home-section-card.is-portrait
+    &,
+    .post_cover img.post_bg,
+    .portrait-card__body,
+    .portrait-card__actions,
+    button.post-pan-download__item.portrait-card__download
+      animation: none
+      transition: none
+
+    &:hover,
+    &:focus-within
+      transform: none
+
+      .post_cover img.post_bg
+        transform: none

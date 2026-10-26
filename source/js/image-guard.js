@@ -1,5 +1,5 @@
 (function () {
-  var guard = window.bbfttImageGuard;
+  var guard = window.heluogameImageGuard;
 
   if (guard && typeof guard.refresh === "function") {
     guard.refresh();
@@ -151,7 +151,7 @@
   document.addEventListener("DOMContentLoaded", refresh);
   document.addEventListener("pjax:complete", refresh);
 
-  window.bbfttImageGuard = {
+  window.heluogameImageGuard = {
     refresh: refresh,
   };
 

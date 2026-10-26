@@ -3,11 +3,15 @@
 # --------------------------------------
 
 menu:
-  首页: / || fas fa-home || faa-tada
+  首页: / || fa-solid fa-house || faa-tada
   精品游戏: /categories/游戏/ || fa-solid fa-gamepad
-  资源杂记: /categories/资源杂记/ || fas fa-archive
+  游戏存档: /categories/存档/ || fa-solid fa-floppy-disk
+  壁纸收藏: /categories/壁纸/ || fa-solid fa-images
+  学习资料: /categories/学习/ || fa-solid fa-book-open
+  工具专区: /categories/工具/ || fa-solid fa-screwdriver-wrench
+  资源杂记: /categories/资源杂记/ || fa-solid fa-folder-open
   # 分类||fas fa-list:
-  标签: /tags/ || fas fa-tags
+  标签: /tags/ || fa-solid fa-tags
 
 # Code Blocks (代码相关)
 # --------------------------------------
@@ -900,7 +904,7 @@ inject:
   head:
     - <link rel="stylesheet" href="/css/article-images.css?v=3">
   bottom:
-    - <script async data-pjax src="/js/bbftt.js"></script>
+    - <script async data-pjax src="/js/heluogame.js"></script>
     - <script defer data-pjax src="/js/image-guard.js"></script>
     # 标题卖萌
     - <script async src="/js/diytitle.js"></script>

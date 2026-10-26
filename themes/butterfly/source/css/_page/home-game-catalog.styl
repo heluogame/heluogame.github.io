@@ -687,10 +687,72 @@ body.game-quickview-open
   &[hidden]
     display: none
 
-  p
+  > [data-game-quickview-review]:not(.is-markdown)
     margin: 0
     padding-left: 14px
     border-left: 3px solid unquote('rgba(var(--game-catalog-accent-rgb), .4)')
+
+  > [data-game-quickview-review].is-markdown
+    white-space: normal
+    line-height: 1.8
+
+    > :first-child
+      margin-top: 0
+
+    > :last-child
+      margin-bottom: 0
+
+    p
+      margin: 0 0 12px
+
+    ol,
+    ul
+      margin: 10px 0 14px
+      padding-left: 26px
+
+    li
+      margin: 6px 0
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6
+      margin: 18px 0 10px
+      color: var(--game-catalog-text)
+      font-size: 17px
+      line-height: 1.5
+
+    img
+      display: block
+      max-width: 100%
+      height: auto
+      margin: 12px auto
+
+    pre,
+    figure.highlight
+      max-width: 100%
+      margin: 12px 0
+      overflow: auto
+      white-space: pre
+
+    pre
+      padding: 12px
+      border-radius: 6px
+      background: var(--game-catalog-modal-soft)
+
+    code
+      font-size: .92em
+
+    a
+      color: var(--game-catalog-accent)
+
+    blockquote
+      margin: 12px 0
+      padding: 8px 14px
+      border-left: 3px solid var(--game-catalog-accent)
+      background: var(--game-catalog-modal-soft)
 
 .game-quickview__summary
   padding: 20px

@@ -5,7 +5,7 @@
  * @LastEditTime: 2025-10-25 22:09:58
  * @LastEditors: 安知鱼
  */
-var bbftt = {
+var heluogame = {
   // 监听按键
   toPage: function () {
     // 从 data 属性获取总页数
@@ -62,7 +62,7 @@ function listenToPageInputPress() {
     input.addEventListener("keydown", event => {
       if (event.keyCode === 13) {
         // 如果按下的是回车键，则执行特定的函数
-        bbftt.toPage();
+        heluogame.toPage();
         var link = document.getElementById("toPageButton");
         var href = link.href;
         pjax.loadUrl(href);

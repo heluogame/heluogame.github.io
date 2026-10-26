@@ -2,8 +2,8 @@
 title: 【游戏】电脑游戏【国产互动SLG/中文/青X楼模拟】风信楼 全剧情官方中文版【新作/1.8G】
 description: 
 date: 2021-9-16 15:29:13
-categories: [游戏]
-tags: []
+categories: [存档]
+tags: [电脑]
 game_badge: '电脑' # 封面左上角文字，如顶级、推荐；留空不显示
 game_platforms: [windows] # 右上角平台图标：android、ios、windows；[] 隐藏
 abbrlink: 54xopbb
@@ -50,4 +50,4 @@ quark: https://pan.quark.cn/
 解压码: ziyanghua
 {% endpanDownload %}
 
-解压方法：<a href="/posts/14694">点击教程</a>
+解压方法：<a href="/posts/1">点击教程</a>
