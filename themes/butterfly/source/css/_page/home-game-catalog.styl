@@ -561,6 +561,7 @@ body.game-quickview-open
 .game-quickview__summary
   overflow-x: hidden
   overflow-y: auto
+  min-width: 0
   min-height: 0
   scrollbar-color: unquote('rgba(var(--game-catalog-accent-rgb), .35)') transparent
   scrollbar-width: thin
@@ -730,18 +731,6 @@ body.game-quickview-open
       height: auto
       margin: 12px auto
 
-    pre,
-    figure.highlight
-      max-width: 100%
-      margin: 12px 0
-      overflow: auto
-      white-space: pre
-
-    pre
-      padding: 12px
-      border-radius: 6px
-      background: var(--game-catalog-modal-soft)
-
     code
       font-size: .92em
 
@@ -753,6 +742,59 @@ body.game-quickview-open
       padding: 8px 14px
       border-left: 3px solid var(--game-catalog-accent)
       background: var(--game-catalog-modal-soft)
+
+// Imported article code blocks need their own layout outside #article-container.
+.game-quickview__article,
+.game-quickview__review > .is-markdown
+  pre,
+  figure.highlight
+    max-width: 100%
+    margin: 12px 0
+    padding: 12px 14px
+    border: 1px solid var(--game-catalog-line)
+    border-radius: 6px
+    background: var(--game-catalog-modal-soft)
+    overflow: auto
+    white-space: pre-wrap
+    overflow-wrap: anywhere
+    word-break: normal
+    line-height: 1.7
+
+  pre
+    font-family: Consolas, Monaco, monospace
+
+  pre code
+    padding: 0
+    background: transparent
+    color: inherit
+    white-space: inherit
+    overflow-wrap: inherit
+
+  figure.highlight
+    table
+      display: table
+      width: 100%
+      margin: 0
+      border: 0
+      table-layout: fixed
+      border-collapse: collapse
+
+    td
+      padding: 0
+      border: 0
+
+    tr
+      background: transparent
+
+    .gutter
+      display: none
+
+    pre
+      margin: 0
+      padding: 0
+      border: 0
+      border-radius: 0
+      background: transparent
 
 .game-quickview__summary
   padding: 20px
@@ -882,6 +924,9 @@ body.game-quickview-open
   background: var(--game-detail-button)
   color: var(--game-catalog-on-accent)
   box-shadow: 0 4px 12px unquote('rgba(var(--game-catalog-accent-rgb), .16)')
+
+  &[hidden]
+    display: none
 
   &:hover
     color: var(--game-catalog-on-accent)

@@ -420,7 +420,10 @@
     if (downloadButton) {
       var dialog = downloadButton.closest('.game-quickview')
       var downloadTarget = findDownloadTarget(query(dialog, '[data-game-quickview-article]'))
-      if (downloadTarget) downloadTarget.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      if (downloadTarget) {
+        setQuickviewTab(dialog, 'details')
+        downloadTarget.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
       return
     }
 
