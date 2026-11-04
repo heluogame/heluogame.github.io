@@ -79,7 +79,7 @@ favicon: /img/favicon.png?v=holo-brown-1
 
 # Avatar (头像)
 avatar:
-  img: https://i0.hdslb.com/bfs/article/5ce619e6beabcc453ec2f431af7be53136165239.jpg
+  img: https://i0.hdslb.com/bfs/new_dyn/5486eddb591fe403f43a9844fa8878993461564132756358.jpg
   effect: false
 
 # Disable all banner image
@@ -133,7 +133,7 @@ error_img:
 error_404:
   enable: true
   subtitle: "Page Not Found"
-  background: https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/page-404.png
+  background: /img/404.jpg
 
 post_meta:
   page: # Home Page
@@ -533,7 +533,7 @@ tag_ui: index # 留空或 index
 # can set it to color or image (可设置图片 或者 顔色)
 # The formal of image: url(http://xxxxxx.com/xxx.jpg)
 
-background: url(https://i0.hdslb.com/bfs/article/5ce619e6beabcc453ec2f431af7be53136165239.jpg)
+background: url(https://i0.hdslb.com/bfs/new_dyn/648eb9bbedfa3449a2e5c984f43c5f1c3461564132756358.jpg)
 
 # Footer Background
 footer_bg: false
@@ -694,7 +694,7 @@ aside:
     sort: date # date or updated
     sort_order: # Don't modify the setting unless you know how it works
   card_categories:
-    enable: true
+    enable: false
     limit: 8 # if set 0 will show all
     expand: none # none/true/false
     sort_order: # Don't modify the setting unless you know how it works

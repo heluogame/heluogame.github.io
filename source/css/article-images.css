@@ -26,3 +26,31 @@
 #article-container p:has(> a:only-child > img:only-child):has(+ p > a:only-child > img:only-child) > a > img {
   margin-bottom: 0;
 }
+
+/* B 站视频嵌入：16:9 自适应，随内容宽度伸缩 */
+#article-container .bili-embed {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 1.4rem 0;
+  padding-top: 56.25%;
+  overflow: hidden;
+  background: #000;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+}
+
+#article-container .bili-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+/* 404 页配图：按容器裁切并居中，避免不同屏幕宽度下露出边角 */
+#error-wrap .error-img {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
