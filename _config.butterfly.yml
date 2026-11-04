@@ -903,11 +903,13 @@ flink_style: flexcard # butterfly | volantis | flexcard
 inject:
   head:
     - <link rel="stylesheet" href="/css/article-images.css?v=3">
+    - <style>#web_bg{background-image:none!important}#web-bg-cover{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1000;pointer-events:none}</style>
   bottom:
     - <script async data-pjax src="/js/heluogame.js"></script>
     - <script defer data-pjax src="/js/image-guard.js"></script>
     # 标题卖萌
     - <script async src="/js/diytitle.js"></script>
+    - <img id="web-bg-cover" src="https://i0.hdslb.com/bfs/new_dyn/648eb9bbedfa3449a2e5c984f43c5f1c3461564132756358.jpg" alt="">
 
 # CDN
 # Don't modify the following settings unless you know how they work
