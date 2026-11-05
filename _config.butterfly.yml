@@ -533,7 +533,7 @@ tag_ui: index # 留空或 index
 # can set it to color or image (可设置图片 或者 顔色)
 # The formal of image: url(http://xxxxxx.com/xxx.jpg)
 
-background: url(https://i0.hdslb.com/bfs/new_dyn/648eb9bbedfa3449a2e5c984f43c5f1c3461564132756358.jpg)
+background: url(https://upload-bbs.miyoushe.com/upload/2026/11/05/399229963/e29fc650c4c8e05db6e66e240a4727b0_4711862958038831670.jpg)
 
 # Footer Background
 footer_bg: false
