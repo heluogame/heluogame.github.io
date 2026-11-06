@@ -11,7 +11,7 @@ menu:
   工具专区: /categories/工具/ || fa-solid fa-screwdriver-wrench
   资源杂记: /categories/资源杂记/ || fa-solid fa-folder-open
   # 分类||fas fa-list:
-  标签: /tags/ || fa-solid fa-tags
+  # 标签: /tags/ || fa-solid fa-tags
 
 # Code Blocks (代码相关)
 # --------------------------------------

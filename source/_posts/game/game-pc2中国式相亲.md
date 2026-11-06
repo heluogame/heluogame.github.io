@@ -11,7 +11,7 @@ card_size: 8.85GB #资源大小
 card_tags: [官方中文, 恋爱养成, 模拟经营, 卡牌, 多结局, 动态]
 card_review: "#游戏评价"
 abbrlink: game-2
-cover: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2103130/521eeab0522c9ac9df01cca3283d12e1a2393737/page_bg_raw.jpg?t=1778665921"
+cover: "https://i0.hdslb.com/bfs/new_dyn/e1f1073f487d5a85f4a920b27ed949063461564132756358.jpg"
 ---
 <a href="/posts/gzfjb0"><img src="https://i0.hdslb.com/bfs/new_dyn/d8e1f6ba152798182bd06b385586929d3546898971494830.jpg@.webp" alt="赞助广子"></a>
 
